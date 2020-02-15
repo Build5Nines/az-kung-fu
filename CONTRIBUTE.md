@@ -1,5 +1,5 @@
 # Contribute to azure-cli-kung-fu
-Thanks for your interest!  We would love to see your the Kung Fu!
+Thanks for your interest!  We would love to see your az kung fu!
 
 ## Branching
 Please fork the project create a branch from Master.
