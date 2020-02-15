@@ -8,13 +8,14 @@
 ``
 az vm image list-publishers -l $location -o table >azure-image-pub.txt
 ``
-
+![alt text](media/list-pubs.jpg "List Publishers")
 ## Use the output from list-publishers to update list-offers
 ``
 az vm image list-offers -l $location -p $publisher -o table
 ``
+![alt text](media/list-offers.jpg "List Offers")
 ## Use the output of list-offers to update list-skus
 ``
-# List SKUs based on offer & publisher
 az vm image list-skus -l $location -p $publisher -f $offers -o table
 ``
+![alt text](media/list-skus.jpg "List SKUS")
