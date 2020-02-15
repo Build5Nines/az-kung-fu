@@ -1,0 +1,50 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - Perform operations against VMs in subscription
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+location=centralus
+vmName=STVM1
+
+#Start, Stop (Azure still charging) or Deallocate VM (Azure not charging)
+az vm start -n $vmName \
+            -g $RG \
+            --no-wait
+
+az vm stop -n $vmName \
+           -g $RG \
+           --no-wait
+
+az vm deallocate -n $vmName \
+                 -g $RG \
+                 --no-wait
+
+
+#List all VMs in your Subscription
+az vm list
+
+## in color json
+az vm list -o jsonc
+
+## in a table with details
+az vm list -d \
+           -o table
+
+#Shows VM information including Powerstate and Location
+az vm show -d \
+           -n $vmName \
+           -g $RG \
+           -o table
+
+
+
+
+
+

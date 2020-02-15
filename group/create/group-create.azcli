@@ -1,0 +1,18 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script should be run to Create a new Resource Group
+# - List all Resource Groups in subscription in a table 
+###########################################################################################
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location

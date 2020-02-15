@@ -1,0 +1,15 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script should be run to export a json template of the resource group
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group export -n $RG >/mnt/c/Users/UserName/$RG-template.json

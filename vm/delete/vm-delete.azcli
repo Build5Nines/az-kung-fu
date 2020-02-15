@@ -1,0 +1,24 @@
+#!/bin/bash
+#################################################################################
+# project: azure-cli-kung-fu
+# http://www.build5nines.com
+# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+#################################################################################
+# Script Purpose
+# - Delete a VM (doesn't delete all of it's resources just VM resource)
+# Script Usage
+# - Update varibles to match the VM you wish to delete
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vmName=[your_vm_name]
+
+#Delete Azure VM
+az vm delete -n $vmName \
+             -g $rg \
+             --yes

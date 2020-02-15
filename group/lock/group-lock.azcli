@@ -1,0 +1,32 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - Create, Delete & List Locks on Resource Groups
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+lockName=LockName1
+
+#Create a Read Only Lock - user can make not changes or delete objects
+az group lock create -g $RG \
+                     -n $lockName \
+                     --lock-type ReadOnly
+
+#Create a Can Not Delete Objects - allows users to make changes, but not delete objects
+az group lock create -g $RG \
+                     -n $lockName \
+                     --lock-type CanNotDelete
+
+
+#Delete a Lock of any type
+az group lock delete -g $RG \
+                     -n $lockName
+
+#List the Locks applied to a Resource Group           
+az group lock list -g $RG \
+                   -o table

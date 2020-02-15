@@ -1,0 +1,29 @@
+#!/bin/bash
+#################################################################################
+# project: azure-cli-kung-fu
+# http://www.build5nines.com
+# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+#################################################################################
+# Script Purpose
+# - Start an Azure VM
+# Script Usage
+# - Update varibles to match the VM you want to Start
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg="[resource_group_name]"
+vmName=[your_vm_name]
+
+#Start, Stop (Azure still charging) or Deallocate VM (Azure not charging)
+az vm start -n $vmName \
+            -g $rg \
+            --no-wait
+
+
+
+
+
+

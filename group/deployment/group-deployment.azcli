@@ -1,0 +1,41 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - Commands in this script can be used to Validate your JSON templates
+# - Create template deployment to a resource group
+# - List the names of Deployements from a Resource Group
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+
+# Create a deployment to an exsisting resource group using a local file
+
+az group deployment validate -g $RG \
+                             --template-file /path/azuredeploy.json
+
+# Create a deployment to an exsisting resource group using URI to a template
+
+az group deployment validate -g $RG \
+                             --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json
+
+
+# Create a deployment to an exsisting resource group using a local file
+
+az group deployment create -g $RG \
+                           --no-wait \
+                           --template-file /path/azuredeploy.json
+
+# Create a deployment to an exsisting resource group using URI to a template
+
+az group deployment create -g $RG \
+                           --no-wait \
+                           --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json
+
+# Show all deployments from a n exsisting resource group
+az group deployment list -g $RG \
+                         -o table

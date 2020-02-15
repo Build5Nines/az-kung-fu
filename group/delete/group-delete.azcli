@@ -1,0 +1,23 @@
+#!/bin/bash
+#################################################################################
+# project: azure-cli-kung-fu
+# http://www.build5nines.com
+# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+#################################################################################
+# Script Purpose
+# ***DANGER - THIS IS SCRIPT COULD CAUSE YOU TO GET FIRED***
+# - Delete a Resource Group and everything with in that's right EVERYTHING
+# Script Usage
+# - Update the variables to delete a resoruce group and everything inside it
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+
+# Delete a Resource Group (the no wait will send the command to azure to execute)
+az group delete -n $rg \
+                -y \
+                --no-wait

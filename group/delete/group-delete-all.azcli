@@ -1,0 +1,30 @@
+#!/bin/bash
+#################################################################################
+# project: azure-cli-kung-fu
+# http://www.build5nines.com
+# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+#################################################################################
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+# Script Purpose
+# - Delete all Resource Groups in an Azure Subscription - that's right EVERYTHING
+# Script Usage
+# - Listen up grasshopper...everything is gonna die.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+# Query all Resource Groups to delete into TSV list
+groups=$(az group list --query [].name --output tsv)
+
+# Delete all Resource groups in the array - EVERYTHING MUST GO!
+for rg in $groups
+do
+	az group delete \
+            --name $rg \
+            --subscription $subId \
+            --yes \
+            --no-wait
+done

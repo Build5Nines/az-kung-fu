@@ -1,0 +1,28 @@
+#!/bin/bash
+#################################################################################
+# project: azure-cli-kung-fu
+# http://www.build5nines.com
+# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+#################################################################################
+# Script Purpose
+# - Create a simple Linux VM
+# Script Usage
+# - update the variables to desired values to create a linux vm
+# - to find available images see the scripts in the vm/list-skus folder
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vmName=[your_vm_name]
+vmImageLinux=[vm_image_name]
+
+#Create Linux VM with minimal inputs
+az vm create -n $vmName \
+             -g $RG \
+             -l $location \
+             --image $vmImageLinux \
+             --generate-ssh-keys
