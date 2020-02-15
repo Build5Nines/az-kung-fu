@@ -1,39 +1,29 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
-# - List the Offers for VM Images
+# - List the Offers available from a Publisher (find those first)
+# - Use az vm image list-publishers
 # Script Usage
-# - teach the grasshopper how to use this kung-fu
+# - When looking for the name of a VM image use this script to find the offers
+# - availble via publishers by region.
+# - Use the output of this with az vm list-skus
 ##################################################################################
 
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"
 
 ## Assign variables
-rg=[resource_group_name]
+## Assign variables
 location=[azure_region_name]
-vmName=[your_vm_name]
-
-location=eastus2
-publisher=Canonical
-offers=UbuntuServer
-
-#List VM image publishers in table format sent to a file
-az vm image list-publishers -l $location \
-                            -o table >azure-image-pub.txt
+publisher=[vm_image_publisher]
 
 # List offers based on pubisher
 az vm image list-offers -l $location \
                         -p $publisher \
                         -o table
-
-# List SKUs based on offer & publisher
-az vm image list-skus -l $location \
-                      -p $publisher \
-                      -f $offers \
-                      -o table
-

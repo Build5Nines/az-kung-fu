@@ -1,13 +1,15 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
-#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
+#################################################################################
 # Script Purpose
-# - Delete a all VMs in a resource group (doesn't delete all of it's resources just VM resource)
+# ********************************** DANGER***************************************
+# - Delete ALL VMs in a resource group (doesn't delete all of it's resources just VM resources)
+# ********************************************************************************
 # Script Usage
 # - Update varibles to match the resource group where you want want to delete
 # - all VM.
@@ -18,8 +20,8 @@ az account set -s "[subscription_name_here]"
 
 ## Assign variables
 rg=[resource_group_name]
-vms=$(az vm list -g $RG --query "[].id" -o tsv)
+vmIds=$(az vm list -g $RG --query "[].id" -o tsv)
 
 #Delete All VMs in a Resource Group
-az vm delete --ids $vms \
+az vm delete --ids $vmIds \
              --yes

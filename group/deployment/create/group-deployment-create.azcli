@@ -1,0 +1,32 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+# Script Purpose
+# - Create template deployment to a resource group
+# Script Usage
+# - Start an Azure deployment from a local ARM template or URI to ARM Template
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+
+# Create a deployment to an exsisting resource group using a local file
+az group deployment create -g $rg \
+                           --no-wait \
+                           --template-file /path/azuredeploy.json
+
+# Create a deployment to an exsisting resource group using URI to a template
+az group deployment create -g $rg \
+                           --no-wait \
+                           --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json

@@ -1,8 +1,10 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
 # - Start an Azure VM
@@ -17,7 +19,7 @@ az account set -s "[subscription_name_here]"
 rg="[resource_group_name]"
 vmName=[your_vm_name]
 
-#Start, Stop (Azure still charging) or Deallocate VM (Azure not charging)
+#Start VM
 az vm start -n $vmName \
             -g $rg \
             --no-wait

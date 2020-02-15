@@ -1,47 +1,76 @@
 #!/bin/bash
-###########################################################################################
-# Stormtrooper Project 
-# MIT License - https://github.com/deltadan/stormtrooper
-# Copyright (c) 2018 Dan Patrick - @deltadan
-#
-#Script Purpose
-# - Perform operations against VMs in subscription
-###########################################################################################
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+# Script Purpose
+# - describe in one line what the script does
+# Script Usage
+# - teach the grasshopper how to use this kung-fu
+##################################################################################
 
-#Variables for Script
-RG=STRG
-location=centralus
-vmName=STVM1
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
 
-#Start, Stop (Azure still charging) or Deallocate VM (Azure not charging)
-az vm start -n $vmName \
-            -g $RG \
-            --no-wait
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
 
-az vm stop -n $vmName \
-           -g $RG \
-           --no-wait
-
-az vm deallocate -n $vmName \
-                 -g $RG \
-                 --no-wait
-
-
-#List all VMs in your Subscription
+#List all VMs in subscription JSON output
 az vm list
 
-## in color json
+#List all VMs in subscription JSON output color
 az vm list -o jsonc
 
-## in a table with details
+#List all VMs in subscription in a table with details
 az vm list -d \
+           -o table
+
+#List all VMs in a resource gorup in a table with details
+az vm list -d \
+           -g $rg \
            -o table
 
 #Shows VM information including Powerstate and Location
 az vm show -d \
            -n $vmName \
-           -g $RG \
+           -g $rg \
            -o table
+
+#List all VMs in subscription JSON output
+az vm list
+
+#List all VMs in subscription JSON output color
+az vm list -o jsonc
+
+#List all VMs in subscription in a table with details
+az vm list -d \
+           -o table
+
+#List all VMs in a resource gorup in a table with details
+az vm list -d \
+           -g $rg \
+           -o table
+
+#Query for a list of all VM Ids in subscription
+az vm list --query "[].id" \
+           -o tsv
+
+#Load variable with list of all VM Ids in subscription
+allVmIds=$(az vm list --query "[].id" -o tsv)
+
+#Query for a list of VM Ids in a Resource Group
+az vm list -g $rg \
+           --query "[].id" \
+           -o tsv
+
+#Load variable with list of VM Ids in a Resource Group
+rgVmIds=$(az vm list -g $rg --query "[].id" -o tsv)
 
 
 

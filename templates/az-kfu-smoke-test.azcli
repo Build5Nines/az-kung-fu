@@ -1,8 +1,10 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
 # - scratch pad script to use during dev
@@ -11,28 +13,6 @@
 ##################################################################################
 
 ## Assign your Azure subscription name or id
-az account set -s "Microsoft Azure Sponsorship"
+az account set -s "foo-bar"
 
 ## Assign variables
-rg=az-kfu-rg
-location=eastus2
-publisher=Canonical
-offers=UbuntuServer
-
-#List VM image publishers in table format sent to a file
-az vm image list-publishers -l $location \
-                            -o table >azure-image-pub.txt
-
-
-# List offers based on pubisher
-az vm image list-offers -l $location \
-                        -p $publisher \
-                        -o table
-
-# List SKUs based on offer & publisher
-az vm image list-skus -l $location \
-                      -p $publisher \
-                      -f $offers \
-                      -o table
-
-                      

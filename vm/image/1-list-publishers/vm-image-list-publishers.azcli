@@ -1,15 +1,18 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
-# - List the Publiers of offers for Azure VM Images
+# - List the Publishers of offers for Azure VM Images
 # Script Usage
 # - When looking for the name of a VM image first use this script to find
 # - the names of available publishers by region.
 # - The list will be published to a file in the current folder named azure-image-pub.txt
+# - Use the output as the value for the publisher variable in az vm list-offers
 ##################################################################################
 
 ## Assign your Azure subscription name or id
@@ -21,3 +24,4 @@ location=[azure_region_name]
 #List VM image publishers in table format sent to a file
 az vm image list-publishers -l $location \
                             -o table >azure-image-pub.txt
+ 

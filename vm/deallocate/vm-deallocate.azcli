@@ -1,8 +1,10 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
 # - Dealloate a VM (no longer being charged for the VM and loose temp data)
@@ -14,7 +16,7 @@
 az account set -s "[subscription_name_here]"
 
 ## Assign variables
-rg="[resource_group_name]"
+rg=[resource_group_name]
 vmName=[your_vm_name]
 
 #Deallocate VM (Azure not charging)

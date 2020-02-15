@@ -1,13 +1,17 @@
 #!/bin/bash
 #################################################################################
-# project: azure-cli-kung-fu
-# http://www.build5nines.com
-# MIT License - https://github.com/Build5Nines/azure-cli-kung-fu
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
-# - Create an azure Resource Group
+# - List resource groups
 # Script Usage
-# - Assign the name and location to create a Resource Group##################################################################################
+# - Update variables to list resource groups
+# - Query for resource groups by region name
+##################################################################################
 
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"
@@ -16,9 +20,9 @@ az account set -s "[subscription_name_here]"
 rg="[resource_group_name]"
 location=[azure_region_name]
 
-# Create a Resource Group (only needed if the RG doesn't exsist)
-az group create -n $rg \
-                -l $location
-
 # List Resource Groups in Table format
 az group list -o table
+
+# List Resource Groups in Table format
+az group list --query "[?location=='$location']" \
+              -o table
