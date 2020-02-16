@@ -1,5 +1,7 @@
 # Find the name of an Image from the Azure Marketplace
 
+It's as "easy" as 1, 2, 3...
+
 1. az vm list-publishers
 2. az vm list-offers
 3. az vm list-skus
