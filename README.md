@@ -1,10 +1,10 @@
-# Azure CLI Kung Fu
+# Az Kung Fu
 
-This repository contains the Azure CLI scripts that go along with the [Azure CLI Kung Fu series on Build5Nines.com](https://build5nines.com/azure-cli-kung-fu).
+This repository contains the Azure CLI scripts that go along with the [Az Kung Fu series on Build5Nines.com](https://build5nines.com/az-kung-fu).
 
 <img src="https://i2.wp.com/build5nines.com/wp-content/uploads/2020/01/Azure-CLI-KungFu-Featured_Image.jpg?resize=1080%2C675&ssl=1"/>
 
-Welcome to Azure CLI Kung Fu, grasshopper! Scripting is the only way to ensure that your environments be the same every time and remove the risk of human error. Like you we write scripts all the time using the Azure CLI, but it feels like we always having to figure out the same commands over and over.
+Welcome to Az Kung Fu, grasshopper! Scripting is the only way to ensure that your environments be the same every time and remove the risk of human error. Like you we write scripts all the time using the Azure CLI, but it feels like we always having to figure out the same commands over and over.
 
 Azure CLI Kung Fu is a ever growing library of Azure CLI samples that you can use to build out your scripts quickly without having to do the heavy lifting of figuring out all the switches and commands.
 
