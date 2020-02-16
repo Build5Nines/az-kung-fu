@@ -1,0 +1,39 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script will create a new Resource Group, VNET and Two Subnets
+# - The Resource Group line can be removed if it already exsists
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+location=centralus
+vnetName=STVNET
+vnetSubnetName1=Apps
+vnetSubnetName2=Data
+
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $RG -l $location
+
+# Create the Virtual Network
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetName \
+                       --address-prefixes 10.0.0.0/16
+
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create -g $RG \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --address-prefix 10.0.1.0/24
+
+az network vnet subnet create -g $RG \
+                              -n $vnetSubnetName2 \
+                              --vnet-name $vnetName \
+                              --address-prefix 10.0.2.0/24

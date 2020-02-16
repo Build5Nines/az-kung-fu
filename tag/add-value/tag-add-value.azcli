@@ -1,0 +1,25 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Add a value to an exsisting tag.
+# Script Usage
+# - Update variables with exsisting tag name and new value to add.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+tagName=[your_tag_name]
+tagValue=[your_tag_value_name]
+
+## Add a value to an exsisting tag
+az tag add-value -n $tagName \
+                 --value $tagValue

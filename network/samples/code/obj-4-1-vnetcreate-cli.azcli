@@ -1,0 +1,9 @@
+# Create a Resource Group
+az group create -n ExamRefRGCLI -l "centralus"
+
+# Create the Virtual Network
+az network vnet create --resource-group ExamRefRGCLI -n ExamRefVNET-CLI --address-prefixes 10.0.0.0/16 -l "centralus"
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create --resource-group ExamRefRGCLI --vnet-name ExamRefVNET-CLI -n Apps --address-prefix 10.0.1.0/24
+az network vnet subnet create --resource-group ExamRefRGCLI --vnet-name ExamRefVNET-CLI -n Data --address-prefix 10.0.2.0/24

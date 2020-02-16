@@ -1,0 +1,15 @@
+# Creating a Public IP Address
+az network public-ip create -g ExamRefRGCLI -n ExamRefLB-PublicIP-CLI --dns-name examreflbcli --allocation-method Static
+
+#Create Load Balancer
+az network lb create -n ExamRefLBCLI -g ExamRefRGCLI -l centralus --backend-pool-name ExamRefBackEndPoolCLI --frontend-ip-name ExamRefFrontEndCLI --public-ip-address ExamRefLB-PublicIP-CLI
+
+#Create HTTP Probe
+az network lb probe create -n HealthProbe -g ExamRefRGCLI --lb-name ExamRefLBCLI --protocol http --port 80 --path / --interval 5 --threshold 2
+
+#Create Load Balancer Rule
+az network lb rule create -n ExamRefRuleHTTPCLI -g ExamRefRGCLI --lb-name ExamRefLBCLI --protocol Tcp --frontend-port 80 --backend-port 80 --frontend-ip-name ExamRefFrontEndCLI --backend-pool-name ExamRefBackEndPoolCLI --probe-name HealthProbe
+
+# Add the Web Servers to the Backend Pool
+az network nic ip-config address-pool add --address-pool ExamRefBackEndPoolCLI --lb-name ExamRefLBCLI -g ExamRefRGCLI --nic-name examrefwebvm160 --ip-config-name ipconfig1
+az network nic ip-config address-pool add --address-pool ExamRefBackEndPoolCLI --lb-name ExamRefLBCLI -g ExamRefRGCLI --nic-name examrefwebvm2139 --ip-config-name ipconfig1

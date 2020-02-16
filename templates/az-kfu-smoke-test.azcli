@@ -16,3 +16,41 @@
 az account set -s "foo-bar"
 
 ## Assign variables
+rg=az-kung-fu
+location=eastus2
+tagName=azkungfu
+tagValue=bar
+
+
+az tag add-value -n $tagName \
+                 --value $tagValue
+          
+az tag delete -n $tagName \
+              --value $tagValue
+
+az tag list
+
+#Show the Locks applied to a Resource Group           
+az group lock show -g $rg \
+                   -n $lockName1 \
+                   -o table
+
+#Create a Read Only Lock - user can make not changes or delete objects
+az group lock create -g $rg \
+                     -n $lockName2 \
+                     --lock-type ReadOnly \
+                     --notes "Allows admins to make changes, but not delete objects"
+
+#Create a Can Not Delete Lock - allows users to make changes, but not delete objects
+az group lock create -g $rg \
+                     -n $lockName2 \
+                     --lock-type CanNotDelete
+
+#List the Locks applied to a Resource Group           
+az group lock list -g $rg \
+                   -o table
+
+
+#Delete a Lock of any type
+az group lock delete -g $rg \
+                     -n $lockName2

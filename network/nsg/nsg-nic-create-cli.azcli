@@ -1,0 +1,38 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script will create a new Network Security Group (NSG)
+# - A Inbound rule will be created to allow TCP traffic from any src address or src port
+#   to dest address on dest port 80
+# - The NSG will then be associated to a NIC (must be created first - see network/nic-create.azcli) 
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+nsgName=STVM1-NSG
+rule1Name=PORT_HTTP_80
+nicName=STVM1-NIC
+
+# Create the NSG
+az network nsg create -g $RG \
+                      -n $nsgName
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 80
+az network nsg rule create -g $RG \
+                           -n $rule1Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 100 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "80" \
+                           --description "Allow HTTP" \
+                           --protocol TCP
+
+

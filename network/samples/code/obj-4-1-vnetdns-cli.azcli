@@ -1,0 +1,2 @@
+# Create VNET with Customer Managed DNS Servers
+az network vnet create --resource-group ExamRefRGCLI -n ExamRefVNET-CLI --address-prefixes 10.0.0.0/16 --dns-servers 10.0.0.4 10.0.0.5 -l "centralus"

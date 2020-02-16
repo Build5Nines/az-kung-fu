@@ -1,0 +1,44 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Move resources from one Resource Group to another
+# Script Usage
+# - There are many conditions that must be met for moving resources
+# - You can move resources between subscriptions if supported
+#################################################################################
+# - Sample Script: "What if I wanted to move all unattached disks from one resource
+#   group to another?"
+# - This script will query a resource group $rg looking for disks which are unattached
+# - The list of disks found are then moved to another Resource Group $destRg.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+destRg=[destination_resource_group_name]
+ids=[your_resource_id]
+
+# Query for specific value condition
+property=diskState
+value=Unattached
+
+#load a variable with the list based on the property and value
+listFoo=$(az disk list -g $rg \
+                       --query "[?$property=='$value']".id \
+                       -o tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev)
+
+# Run loop to update the disks based on array in listFoo
+array=($listFoo)
+for disks in "${array[@]}"
+do
+    az resource move --destination-group $destRg \
+                     --ids $disks
+done

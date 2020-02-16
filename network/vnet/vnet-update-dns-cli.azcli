@@ -1,0 +1,20 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script should be run to update the Custom DNS Setting for a Virtual Network
+# - All VMs will need to be rebooted in order to pick up these settings
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+vnetName=STVNET
+
+
+# Create VNET with Customer Managed DNS Servers
+az network vnet update -g $RG \
+                       -n $vnetName \
+                       --dns-servers 10.0.0.4 10.0.0.5

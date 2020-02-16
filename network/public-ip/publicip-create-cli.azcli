@@ -1,0 +1,21 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script will create a new Public IP Address
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+pubIPName=STPUBIP1
+dnsName=stpubdns8675309
+allocMethod=static
+
+# Creating a Public IP Address
+az network public-ip create -g $RG \
+                            -n $pubIPName \
+                            --dns-name $dnsName \
+                            --allocation-method $allocMethod

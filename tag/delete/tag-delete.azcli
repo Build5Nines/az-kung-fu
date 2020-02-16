@@ -1,0 +1,22 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Delete an exsisting Tag to subscription.
+# Script Usage
+# - Update variables with Tag name to delete.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+tagName=[your_tag_name]
+
+# Delete an esisting Tag from the subscription
+az tag delete -n $tagName

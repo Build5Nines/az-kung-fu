@@ -1,0 +1,13 @@
+# Create a subnet for the App Gateway in the CLIRefVNET VNet with the Address Range of 10.0.98.0/26
+
+az network vnet subnet create -g CLIRefRG --vnet-name ExamRefVNET-CLI -n AppGateway --address-prefix 10.0.98.0/26
+
+# Create a public IP address that is used to connect to the application gateway.
+
+az network public-ip create -g CLIRefRG -n CLIRefAppGW-PubIP
+
+# Create the App gateway named CLIRefAppGW
+az network application-gateway create -n "CLIRefAppGW" -g "CLIRefRG" --vnet-name "CLIRefVNET" --subnet "AppGateway" --capacity 2 --sku WAF_Medium --http-settings-cookie-based-affinity Disabled --http-settings-protocol Http --frontend-port 80 --routing-rule-type Basic --http-settings-port 80 --public-ip-address "CLIRefAppGW-PubIP"
+
+# Enable the WAF
+  

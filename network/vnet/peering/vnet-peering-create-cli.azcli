@@ -1,0 +1,100 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - This script will create a new Resource Group, VNET and Two Subnets
+# - The Resource Group line can be removed if it already exsists
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+location=centralus
+vnetNameA=STVNETA
+vnetASubnetName1=Apps
+vnetASubnetName2=Data
+vnetNameB=STVNETB
+vnetBSubnetName1=Apps
+vnetBSubnetName2=Data
+
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $RG -l $location
+
+# Create the Virtual Network A
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetNameA \
+                       --address-prefixes 10.0.0.0/16
+
+
+#Create the Subnets for the Virtual Network A
+az network vnet subnet create -g $RG \
+                              -n $vnetASubnetName1 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.1.0/24
+
+az network vnet subnet create -g $RG \
+                              -n $vnetASubnetName2 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.2.0/24
+
+
+# Create the Virtual Network B
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetNameB \
+                       --address-prefixes 172.16.0.0/16
+
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create -g $RG \
+                              -n $vnetBSubnetName1 \
+                              --vnet-name $vnetNameB  \
+                              --address-prefix 172.16.1.0/24
+
+az network vnet subnet create -g $RG \
+                              -n $vnetBSubnetName2 \
+                              --vnet-name $vnetNameB \
+                              --address-prefix 172.16.2.0/24
+
+#Get the Resource IDs for VNETA and VNETB.
+vnetAResourceId=$(az network vnet show -g $RG \
+                                       -n $vnetNameA \
+                                       --query id \
+                                       --out tsv)
+
+vnetBResourceId=$(az network vnet show -g $RG \
+                                       -n $vnetNameB \
+                                       --query id \
+                                       --out tsv)
+
+# Peer VNETB to VNETA: the output from the Command to find the Resource ID for VNETA & VNETB is used with the --remote-vnet-id argument
+
+az network vnet peering create -g $RG \
+                               -n $vnetNameA-to-$vnetNameB \
+                               --vnet-name $vnetNameA \
+                               --allow-vnet-access \
+                               --remote-vnet-id $vnetBResourceId
+
+# Peer VNETB to VNETA. the output from the command to find the Resource ID for VNETA is used with the --remote-vnet-id arugment
+
+az network vnet peering create -g $RG \
+                               -n $vnetNameB-to-$vnetNameA \
+                               --vnet-name $vnetNameB \
+                               --allow-vnet-access \
+                               --remote-vnet-id $vnetAResourceId
+
+#To See the Current State of the Peering as a Table
+
+az network vnet peering list -g $RG \
+                             --vnet-name $vnetNameB \
+                             -o tsv
+                             
+ #To See the Current State using a query
+
+az network vnet peering list -g $RG \
+                             --vnet-name $vnetNameB \
+                             --query "[].peeringState"
