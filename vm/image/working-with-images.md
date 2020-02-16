@@ -1,8 +1,10 @@
 # Find the name of an Image from the Azure Marketplace
 
-1. az vm list-publishers
-2. az vm list-offers
-3. az vm list-skus
+It's as "easy" as 1, 2, 3...
+
+1. az vm image list-publishers
+2. az vm image list-offers
+3. az vm image list-skus
 
 ## Use az vm list-publisher to locate the publisher you desire
 ``
@@ -14,7 +16,7 @@ az vm image list-publishers -l $location -o table >azure-image-pub.txt
 ## Use the output from list-publishers to update list-offers
 
 ``
-az vm image list-offers -l $location -p $publisher -o table
+az vm image list-offers -l $location -p Canonical -o table
 ``
 
 ![alt text](media/list-offers.jpg "List Offers")
@@ -22,7 +24,7 @@ az vm image list-offers -l $location -p $publisher -o table
 ## Use the output of list-offers to update list-skus
 
 ``
-az vm image list-skus -l $location -p $publisher -f $offers -o table
+az vm image list-skus -l $location -p Canonical -f UbuntuServer -o table
 ``
 
 ![alt text](media/list-skus.jpg "List SKUS")
