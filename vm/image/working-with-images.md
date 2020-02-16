@@ -16,7 +16,7 @@ az vm image list-publishers -l $location -o table >azure-image-pub.txt
 ## Use the output from list-publishers to update list-offers
 
 ``
-az vm image list-offers -l $location -p $publisher -o table
+az vm image list-offers -l $location -p Canonical -o table
 ``
 
 ![alt text](media/list-offers.jpg "List Offers")
@@ -24,7 +24,7 @@ az vm image list-offers -l $location -p $publisher -o table
 ## Use the output of list-offers to update list-skus
 
 ``
-az vm image list-skus -l $location -p $publisher -f $offers -o table
+az vm image list-skus -l $location -p Canonical -f $offers -o table
 ``
 
 ![alt text](media/list-skus.jpg "List SKUS")
