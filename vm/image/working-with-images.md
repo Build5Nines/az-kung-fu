@@ -2,9 +2,9 @@
 
 It's as "easy" as 1, 2, 3...
 
-1. az vm list-publishers
-2. az vm list-offers
-3. az vm list-skus
+1. az vm image list-publishers
+2. az vm image list-offers
+3. az vm image list-skus
 
 ## Use az vm list-publisher to locate the publisher you desire
 ``
