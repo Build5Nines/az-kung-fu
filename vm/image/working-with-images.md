@@ -24,7 +24,7 @@ az vm image list-offers -l $location -p Canonical -o table
 ## Use the output of list-offers to update list-skus
 
 ``
-az vm image list-skus -l $location -p Canonical -f $offers -o table
+az vm image list-skus -l $location -p Canonical -f UbuntuServer -o table
 ``
 
 ![alt text](media/list-skus.jpg "List SKUS")
