@@ -9,6 +9,7 @@
 # - custome script extention to configure the az-kung-fu-vm
 ##################################################################################
 #Install Chocolatey
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 #Assign Chocolatey Packages to Install
@@ -36,11 +37,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https:/
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
 #Setup WSL Install after reboot
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/Build5Nines/az-kung-fu/sprint1/az-kung-fu-vm/configureWsl.ps1 `
-    -OutFile C:\WindowsAzure\configureWsl.ps1 -UseBasicParsing
-$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger `
-    -FilePath C:\WindowsAzure\configureWsl.ps1 `
-    -Name InstallWSL
+#Download and Install Ubuntu
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
+Add-AppxPackage -Path ~/Ubuntu.appx
+
 #Reboot
 Restart-Computer -Force
