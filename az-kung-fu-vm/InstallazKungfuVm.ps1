@@ -35,15 +35,12 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https:/
 #Enable WSL
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
-#Download and Install Ubuntu
-Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
-Add-AppxPackage -Path ~/Ubuntu.appx
-
-# Run the distro once and have it install locally with root user, unset password
-RefreshEnv
-Ubuntu1804 install --root
-Ubuntu1804 run apt-get update -y
-Ubuntu1804 run curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
+#Setup WSL Install after reboot
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/Build5Nines/az-kung-fu/sprint1/az-kung-fu-vm/configureWsl.ps1 `
+    -OutFile C:\WindowsAzure\configureWsl.ps1 -UseBasicParsing
+$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
+Register-ScheduledJob -Trigger $trigger `
+    -FilePath C:\WindowsAzure\configureWsl.ps1 `
+    -Name InstallWSL
 #Reboot
 Restart-Computer -Force
