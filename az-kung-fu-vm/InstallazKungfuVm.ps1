@@ -39,7 +39,16 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 #Download and Install Ubuntu
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
+
 #User must manually configure WSL after reboot, see README.MD file
+#Bring down Desktop Shortcuts
+$zipDownload = "https://github.com/az-kung-fu/az-kung-fu-vm/blob/sprint1/shortcuts.zip?raw=true"
+$downloadedFile = "D:\shortcuts.zip"
+$vmFolder = "C:\Users\Public\Desktop"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Invoke-WebRequest $zipDownload -OutFile $downloadedFile
+Add-Type -assembly "system.io.compression.filesystem"
+[io.compression.zipfile]::ExtractToDirectory($downloadedFile, $vmFolder)
 
 #Reboot
 Restart-Computer -Force
