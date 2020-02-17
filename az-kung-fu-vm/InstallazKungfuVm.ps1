@@ -26,9 +26,9 @@ $Packages = `
 ForEach ($PackageName in $Packages)
 { choco install $PackageName -y }
 
-#Install Azure PowerShell
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Set-ExecutionPolicy Bypass -Scope Process -Force; Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+#Todo - Install Azure PowerShell
+#Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+#Set-ExecutionPolicy Bypass -Scope Process -Force; Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
 
 #Install Azure CLI for Windows
 Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'
