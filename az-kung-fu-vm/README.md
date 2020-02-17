@@ -24,8 +24,8 @@ Have you ever spent hours building a machine to use as a admin workstation for A
 
 
 **Configure Windows Subsystem for Linux**
-1. Start -> Ubuntu 18.04
-1. Follow prompts to install
+1. Double-click Install Ubuntu on Desktop, click Install.
+1. Follow prompts to install providing UNIX username and password.
 1. Run the following command to install the Azure CLI into WSL
 
 ```
