@@ -1,4 +1,4 @@
-# Az Kung Fu - Adminsitrator's VM!
+# Az Kung Fu - Adminstrator's VM!
 Have you ever spent hours building a machine to use as a admin workstation for Azure?   What about installing Windows Subsystem for Linux?  Then this one click deployment is for you.  Use this VM to start down the path of az-kung-fu grasshopper!
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fbuild5nines%2Faz-kung-fu%2Fsprint1%2Faz-kung-fu-vm%2Fazure-deploy.json" target="_blank">

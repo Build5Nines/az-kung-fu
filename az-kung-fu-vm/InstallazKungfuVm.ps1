@@ -36,10 +36,10 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https:/
 #Enable WSL
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
-#Setup WSL Install after reboot
 #Download and Install Ubuntu
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
+#User must manually configure WSL after reboot, see README.MD file
 
 #Reboot
 Restart-Computer -Force
