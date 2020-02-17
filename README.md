@@ -10,15 +10,14 @@ Azure CLI Kung Fu is a ever growing library of Azure CLI samples that you can us
 
 Our goal for Azure CLI Kung Fu is to provide real world samples that you can use for your DevOps implementations. Microsoft provides an extensive [reference](https://docs.microsoft.com/en-us/cli/azure/reference-index?view=azure-cli-latest), but we've found it be to be much easier when there is an example to start from.
 
-## Az-Kung-Fu-Vm
-Check out our the [one-click](https://github.com/Build5Nines/az-kung-fu-vm) Azure administrator VM.
-
-
-## Azure CLI
+## Install the Azure CLI
 
 The Azure CLI is a powerful and fast tool that can be used to work with almost any service in Azure. The AZ CLI is cross platform and can be installed and run from Windows, Macs, Linux and even a Docker container.
 
-Visit the our [install page](https://github.com/deltadan/stormtrooper/tree/master/docs/install-cli) to run our installer script from your bash prompt (even on windows).
+Visit the [install page](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
+
+## Az-Kung-Fu-Vm
+Check out our the [one-click](https://github.com/Build5Nines/az-kung-fu-vm) Azure administrator VM.
 
 ## BASH, Visual Studio Code &amp; Azure CLI Extension
 
