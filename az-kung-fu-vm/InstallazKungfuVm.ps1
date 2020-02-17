@@ -17,13 +17,12 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object
 
 #Assign Chocolatey Packages to Install
 $Packages = `
-    'adobereader', `
     'winrar', `
     'wsl', `
     'git', `
+    'github-desktop', `
     'putty.install', `
     'sysinternals', `
-    'python3', `
     'microsoft-edge', `
     'visualstudiocode', `
     'microsoftazurestorageexplorer'
@@ -43,3 +42,5 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https:/
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
 
+#Reboot
+Restart-Computer -Force
