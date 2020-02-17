@@ -54,3 +54,18 @@ az group lock list -g $rg \
 #Delete a Lock of any type
 az group lock delete -g $rg \
                      -n $lockName2
+
+
+location=eastus2
+publisher=MicrosoftWindowsDesktop
+offers=office-365
+# List offers based on pubisher
+az vm image list-offers -l $location \
+                        -p $publisher \
+                        -o table
+
+# List SKUs based on offer & publisher
+az vm image list-skus -l $location \
+                      -p $publisher \
+                      -f $offers \
+                      -o table

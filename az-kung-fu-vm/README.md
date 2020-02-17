@@ -13,9 +13,7 @@ Have you ever spent hours building a machine to use as a admin workstation for A
 1. Github Desktop
 1. Office 365 Pro Plus
 1. Putty
-1. python3
 1. SysInternals
-1. Teams
 1. Visual Studio Code
 1. Windows Subsystem for Linux (Ubuntu 18.04)
 1. WinRar

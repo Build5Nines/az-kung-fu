@@ -6,21 +6,15 @@
 # Script Purpose
 # - configure the az-kung-fu-vm
 # Script Usage
-# - Use this to install the azure cli manually if issues with script
-# - for your az-kung-fu-vm.
+# - custome script extention to configure the az-kung-fu-vm
 ##################################################################################
-#Enable WSL
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
-
 #Install Chocolatey
 Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 #Assign Chocolatey Packages to Install
 $Packages = `
     'winrar', `
-    'wsl', `
     'git', `
-    'github-desktop', `
     'putty.install', `
     'sysinternals', `
     'microsoft-edge', `
@@ -41,6 +35,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri https:/
 #Install Ubuntu for WSL and
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
+
+#Enable WSL
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
 #Reboot
 Restart-Computer -Force

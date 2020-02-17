@@ -18,7 +18,7 @@
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"
 
-## Assign variables
+
 ## Assign variables
 location=[azure_region_name]
 publisher=[vm_image_publisher]
