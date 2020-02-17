@@ -19,6 +19,7 @@ $Packages = `
     'git', `
     'putty.install', `
     'sysinternals', `
+    'github-desktop', `
     'microsoft-edge', `
     'visualstudiocode', `
     'microsoftazurestorageexplorer'
