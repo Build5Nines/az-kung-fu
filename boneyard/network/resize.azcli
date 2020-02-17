@@ -1,0 +1,2 @@
+az vm list-vm-resize-options --resource-group prod --name  --output table
+az vm list-sizes -l eastus -o table

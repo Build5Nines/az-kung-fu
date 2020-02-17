@@ -22,5 +22,5 @@ destRg=[destination_resource_group_name]
 ids=[your_resource_id]
 
 # Resource to move to destination resource group
-az resource move --destination-group $destRG
+az resource move --destination-group $destRG \
                  --ids $ids

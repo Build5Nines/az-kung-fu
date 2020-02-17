@@ -1,0 +1,229 @@
+#Variables for Script
+RG=AZ103-PEERING-demo-rg
+location=centralus
+vnetNameA=HUB-VNET
+vnetASubnetName1=GatewaySubnet
+vnetASubnetName2=VM
+vnetNameAvpnGWName=HUB-VNET-GW
+vnetNameAvpnGWNamePip=HUB-VNET-GW-pip
+vnetNameB=SPOKE-VNET
+vnetBSubnetName1=VM
+vnetNameC=ON-PREM-VNET
+vnetCSubnetName1=GatewaySubnet
+vnetCSubnetName2=VM
+vnetNameCvpnGWName=ON-PREM-VNET-GW
+vnetNameCvpnGWNamePip=ON-PREM-VNET-GW-pip
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $RG -l $location
+
+# Create the Virtual Network A
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetNameA \
+                       --address-prefixes 10.0.0.0/16
+
+#Create the Subnets for the Virtual Network A
+az network vnet subnet create -g $RG \
+                              -n $vnetASubnetName1 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.0.0/24
+
+az network vnet subnet create -g $RG \
+                              -n $vnetASubnetName2 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.1.0/24
+
+# Create the Virtual Network B
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetNameB \
+                       --address-prefixes 172.16.0.0/16
+
+#Create the Subnets for the Virtual Network B
+az network vnet subnet create -g $RG \
+                              -n $vnetBSubnetName1 \
+                              --vnet-name $vnetNameB  \
+                              --address-prefix 172.16.1.0/24
+
+# Create the Virtual Network C
+az network vnet create -g $RG \
+                       -l $location \
+                       -n $vnetNameC \
+                       --address-prefixes 192.168.0.0/20
+
+#Create the Subnets for the Virtual Network C
+az network vnet subnet create -g $RG \
+                              -n $vnetCSubnetName1 \
+                              --vnet-name $vnetNameC  \
+                              --address-prefix 192.168.0.0/24
+
+az network vnet subnet create -g $RG \
+                              -n $vnetCSubnetName2 \
+                              --vnet-name $vnetNameC  \
+                              --address-prefix 192.168.1.0/24
+
+#Get the Resource IDs for VNETA and VNETB.
+vnetAResourceId=$(az network vnet show -g $RG \
+                                       -n $vnetNameA \
+                                       --query id \
+                                       --out tsv)
+
+vnetBResourceId=$(az network vnet show -g $RG \
+                                       -n $vnetNameB \
+                                       --query id \
+                                       --out tsv)
+
+# Peer VNETB to VNETA: the output from the Command to find the Resource ID for VNETA & VNETB is used with the --remote-vnet-id argument
+
+az network vnet peering create -g $RG \
+                               -n $vnetNameA-to-$vnetNameB \
+                               --vnet-name $vnetNameA \
+                               --allow-vnet-access \
+                               --remote-vnet-id $vnetBResourceId
+
+# Peer VNETB to VNETA. the output from the command to find the Resource ID for VNETA is used with the --remote-vnet-id arugment
+
+az network vnet peering create -g $RG \
+                               -n $vnetNameB-to-$vnetNameA \
+                               --vnet-name $vnetNameB \
+                               --allow-vnet-access \
+                               --remote-vnet-id $vnetAResourceId
+
+#To See the Current State of the Peering as a Table
+
+az network vnet peering list -g $RG \
+                             --vnet-name $vnetNameB \
+                             -o tsv
+                             
+ #To See the Current State using a query
+
+az network vnet peering list -g $RG \
+                             --vnet-name $vnetNameB \
+                             --query "[].peeringState"
+
+#Create VPN Gateway PIPs
+az network public-ip create \
+  -n $vnetNameAvpnGWNamePip \
+  -g $RG \
+  --allocation-method Dynamic
+
+az network public-ip create \
+  -n $vnetNameCvpnGWNamePip \
+  -g $RG \
+  --allocation-method Dynamic
+
+#Create VPN Gateways
+az network vnet-gateway create \
+  -n $vnetNameAvpnGWName \
+  -l $location \
+  --public-ip-address $vnetNameAvpnGWNamePip \
+  -g $RG \
+  --vnet $vnetNameA \
+  --gateway-type Vpn \
+  --sku VpnGw1 \
+  --vpn-type RouteBased \
+  --no-wait
+
+  az network vnet-gateway create \
+  -n $vnetNameCvpnGWName \
+  -l $location \
+  --public-ip-address $vnetNameCvpnGWNamePip \
+  -g $RG \
+  --vnet $vnetNameC \
+  --gateway-type Vpn \
+  --sku VpnGw1 \
+  --vpn-type RouteBased \
+  --no-wait
+
+##################################################
+# Create the VMs in the HUB, Spoke and On-Prem networks
+# The On-Prem VM will have the PIP
+#Set Variables
+azureuser=demouser
+adminPassword=demo@pass123
+vm1=HUB-VM
+vm1Nic=HUB-VM-nic
+vm2=SPOKE-VM
+vm2Nic=SPOKE-VM-nic
+vm3=ON-PREM-VM
+vm3Pip=ON-PREM-VM-pip
+vm3Nsg=ON-PREM-VM-nsg
+vm3Nic=ON-PREM-VM-nic
+
+##########################################
+# Create the HUB-VM
+# Create a virtual network card
+az network nic create \
+  --resource-group $RG \
+  --name $vm1Nic  \
+  --vnet-name $vnetNameA \
+  --subnet $vnetASubnetName2
+  
+# Create a virtual machine. 
+az vm create \
+    --resource-group $RG \
+    --name $vm1 \
+    --location $location \
+    --nics $vm1Nic \
+    --image win2016datacenter \
+    --admin-username $azureuser \
+    --admin-password $adminPassword \
+    --no-wait
+##########################################
+# Create the SPOKE-VM
+# Create a virtual network card
+az network nic create \
+  --resource-group $RG \
+  --name $vm2Nic  \
+  --vnet-name $vnetNameB \
+  --subnet $vnetBSubnetName1
+  
+# Create a virtual machine. 
+az vm create \
+    --resource-group $RG \
+    --name $vm2 \
+    --location $location \
+    --nics $vm2Nic \
+    --image win2016datacenter \
+    --admin-username $azureuser \
+    --admin-password $adminPassword \
+    --no-wait
+#############################################
+#Create the ON-PREM-VM
+# Create a public IP address.
+az network public-ip create \
+    --resource-group $RG \
+    --name $vm3Pip
+
+# Create a network security group.
+az network nsg create \
+    --resource-group $RG \
+    --name $vm3Nsg
+
+# Create a virtual network card and associate with public IP address and NSG.
+az network nic create \
+  --resource-group $RG \
+  --name $vm3Nic  \
+  --vnet-name $vnetNameC \
+  --subnet $vnetCSubnetName2 \
+  --network-security-group $vm3Nsg \
+  --public-ip-address $vm3Pip
+
+# Create a virtual machine. 
+az vm create \
+    --resource-group $RG \
+    --name $vm3 \
+    --location $location \
+    --nics $vm3Nic \
+    --image win2016datacenter \
+    --admin-username $azureuser \
+    --admin-password $adminPassword \
+    --no-wait
+
+# Open port 3389 to allow RDP traffic to host.
+az vm open-port \
+    --port 3389 \
+    --resource-group $RG \
+    --name $vm3
+
