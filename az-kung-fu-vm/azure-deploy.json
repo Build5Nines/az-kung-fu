@@ -47,7 +47,7 @@
     "azKungFuVm-PUBIPName": "[concat(variables('azKungFuVmName'), '-pip')]",
     "azKungFuVmInstallScriptFolder": ".",
     "azKungFuVmInstallScriptFileName": "InstallazKungFuVm.ps1",
-    "azKungFuVmInstallURL": "https://raw.githubusercontent.com/build5nines/az-kung-fu-vm/sprint1/az-kung-fu-vm/InstallazKungFuVm.ps1"
+    "azKungFuVmInstallURL": "https://raw.githubusercontent.com/Build5Nines/az-kung-fu/sprint1/az-kung-fu-vm/InstallazKungfuVm.ps1"
   },
   "resources": [
     {
