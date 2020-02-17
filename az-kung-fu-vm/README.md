@@ -7,11 +7,10 @@ Have you ever spent hours building a machine to use as a admin workstation for A
 
 **Software included on the VM**
 
-1. Azure Storage Explorer
-1. Microsoft Edge
-1. Git for Windows (bash)
-1. Github Desktop
 1. Office 365 Pro Plus
+1. Azure Storage Explorer
+1. Git for Windows (bash)
+1. Microsoft Edge
 1. Putty
 1. SysInternals
 1. Visual Studio Code
