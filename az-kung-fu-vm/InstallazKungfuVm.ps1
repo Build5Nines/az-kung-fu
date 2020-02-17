@@ -42,7 +42,8 @@ Add-AppxPackage -Path ~/Ubuntu.appx
 # Run the distro once and have it install locally with root user, unset password
 RefreshEnv
 Ubuntu1804 install --root
-Ubuntu1804 run apt-get update -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+Ubuntu1804 run apt-get update -y
+Ubuntu1804 run curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 #Reboot
 Restart-Computer -Force
