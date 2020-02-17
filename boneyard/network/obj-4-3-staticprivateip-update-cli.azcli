@@ -1,2 +1,0 @@
-# Update existing NIC to use a Static IP Address and set the IP
-az network nic ip-config update --name ipconfig1 --nic-name examrefwebvm1400 --resource-group ExamRefRGCLI --private-ip-address 10.0.0.4

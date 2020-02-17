@@ -1,2 +1,0 @@
-# Creating a Public IP Address
-az network public-ip create -g ExamRefRGCLI -n ExamRef-PublicIP1-CLI --dns-name examrefpubip1cli --allocation-method Static
