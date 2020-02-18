@@ -81,4 +81,3 @@ A: You can submit issues on the issues tab of the project.
 Q: I want to learn about the Azure CLI?  Do you have training?
 
 A: Not yet, but we are looking to build a course soon.
-
