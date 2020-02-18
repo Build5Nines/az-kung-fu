@@ -1,49 +1,50 @@
 #!/bin/bash
-###########################################################################################
-# Stormtrooper Project 
-# MIT License - https://github.com/deltadan/stormtrooper
-# Copyright (c) 2018 Dan Patrick - @deltadan
-#
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
 #Script Purpose
 # - Create a New NIC without an NSG
 # - Create a NIC without NSG assign static private IP Address
 # - Create a NIC without NSG assign static Public IP Address (PublicIP must exsist see - etwork/publicip-create.azcli)
-# - Create a NIC and associate a NSG (NSG must exsist see - network/nsg-nic-create.azcli) 
-###########################################################################################
+# - Create a NIC and associate a NSG (NSG must exsist see - network/nsg/create/nsg-nic-create.azcli) 
+#Script Usage
+# - update the variables to create a nic if different ways
+##################################################################################
 
 #Variables for Script
-RG=STRG
-nicName=nicName=[your_nic_name]
-vnetName=STVNET
-vnetSubnetName1=Apps
-publicIPName1=STPUBIP1
-nsgName=STVM1-NSG
-rule1Name=PORT_HTTP_80
-
+rg=[resource_group_name]
+nicName=[your_nic_name]
+vnetSubnetName1=[your_subnet_name]
+pubIPName1=[your_pip_name]
+nsgName=[your_nsg_name]
 
 #Create a NIC without a NSG
 az network nic create -n $nicName \
-                      -g $RG \
+                      -g $rg \
                       --vnet-name $vnetName \
                       --subnet $vnetSubnetName1
 
 #Create a NIC without NSG assign static private IP Address
 az network nic create -n $nicName \
-                      -g $RG \
+                      -g $rg \
                       --vnet-name $vnetName \
                       --subnet $vnetSubnetName1 \
                       --private-ip-address 10.0.1.10
 
 #Create a NIC without NSG assign static Public IP Address (Public IP Address must exsist)
 az network nic create -n $nicName \
-                      -g $RG \
+                      -g $rg \
                       --vnet-name $vnetName \
                       --subnet $vnetSubnetName1 \
-                      --public-ip-address $publicIPName1
+                      --public-ip-address $pubIPName1
 
 #Create a NIC and associate a NSG
 az network nic create -n $nicName \
-                      -g $RG \
+                      -g $rg \
                       --vnet-name $vnetName \
                       --subnet $vnetSubnetName1 \
                       --network-security-group $nsgName

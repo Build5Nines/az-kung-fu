@@ -9,12 +9,16 @@
 #   & /network/nic-create.azcli)
 ###########################################################################################
 
-#Variables for Script
-RG=STRG
-nicName=STVM1-NIC
-nsgName=STVM1-NSG
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+nicName=[your_nic_name]
+nsgName=[your_nsg_name]
 
 # Associate the NSG with an exsisting NIC
-az network nic update -g $RG \
+az network nic update -g $rg \
                       -n $nicName \
                       --network-security-group $nsgName
