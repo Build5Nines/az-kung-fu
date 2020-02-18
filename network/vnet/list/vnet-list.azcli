@@ -18,10 +18,10 @@ az account set -s "[subscription_name_here]"
 ## Assign variables
 rg=[resource_group_name]
 
-# Show the Virtual Networks in a resource group jsonc
+# Show the Virtual Networks in a subscription jsonc
 az network vnet list -o jsonc
 
-# List the Virtual Networks in a resource gorup
+# List the Virtual Networks in a subscription
 az network vnet list -o table
 
 # Show the Virtual Networks in a resource group jsonc
