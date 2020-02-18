@@ -1,0 +1,40 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create, Delete & List Locks on Resource Groups
+# Script Usage
+# - teach the grasshopper how to use this kung-fu
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+lockName=[your_lock_name]
+
+#Create a Read Only Lock - user can make not changes or delete objects
+az group lock create -g $rg \
+                     -n $lockName \
+                     --lock-type ReadOnly
+
+#Create a Can Not Delete Objects - allows users to make changes, but not delete objects
+az group lock create -g $rg \
+                     -n $lockName \
+                     --lock-type CanNotDelete
+
+
+#Delete a Lock of any type
+az group lock delete -g $rg \
+                     -n $lockName
+
+#List the Locks applied to a Resource Group           
+az group lock list -g $rg \
+                   -o table

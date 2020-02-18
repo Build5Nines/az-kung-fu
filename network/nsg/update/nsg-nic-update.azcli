@@ -1,0 +1,20 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+#Script Purpose
+# - Assoicate a NSG with an Exsisting NIC (NSG & NIC must exsist see /network/nsg-create.azcli
+#   & /network/nic-create.azcli)
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+nicName=STVM1-NIC
+nsgName=STVM1-NSG
+
+# Associate the NSG with an exsisting NIC
+az network nic update -g $RG \
+                      -n $nicName \
+                      --network-security-group $nsgName

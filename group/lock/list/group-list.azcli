@@ -1,0 +1,25 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - List Locks on Resource Groups
+# Script Usage
+# - Update variables to list locks on resource groups
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+lockName=[your_lock_name]
+
+#List the Locks applied to a Resource Group           
+az group lock list -g $rg \
+                   -o table

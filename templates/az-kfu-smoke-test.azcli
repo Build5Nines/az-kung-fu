@@ -1,0 +1,60 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Used to smoke test while building scripts for this repo
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "Microsoft Azure Sponsorship"
+
+## Assign variables
+rg=az-kung-fu-nsg
+location=eastus2
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location
+
+## Assign variables
+nsgName=az-kung-fu-nsg
+rule1Name=az-kung-fu-nsg-http
+rule2Name=az-kung-fu-nsg-deny
+nicName=az-kung-fu-nic
+
+# Create the NSG
+az network nsg create -g $rg \
+                      -n $nsgName
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 80
+az network nsg rule create -g $rg \
+                           -n $rule1Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 100 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "80" \
+                           --description "Allow HTTP" \
+                           --protocol TCP
+
+# Create the NSG Inbound Rule to deny all traffic after other rules put in place
+az network nsg rule create -g $rg \
+                           -n $rule2Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 4096 \
+                           --access deny \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "*" \
+                           --description "deny-all" \
+                           --protocol "*"
+

@@ -1,0 +1,39 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create a peering between two exsisting networks
+# Script Usage
+# - Update the variables with two exsisting VNET names (can't have overlapping
+# - ip address prefixes)
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+# VNET A
+vnetNameA=[your_vnet_A_name]
+# VNET B
+vnetNameB=[your_vnet_A_name]
+
+# Create peering VNETA to VNETB
+az network vnet peering create -g $rg \
+                               -n $vnetNameA-to-$vnetNameB \
+                               --vnet-name $vnetNameA \
+                               --allow-vnet-access \
+                               --remote-vnet $vnetNameB
+
+# Create peering VNETB to VNETA
+az network vnet peering create -g $rg \
+                               -n $vnetNameB-to-$vnetNameA \
+                               --vnet-name $vnetNameB \
+                               --allow-vnet-access \
+                               --remote-vnet $vnetNameA

@@ -1,0 +1,44 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Many different ways List resources
+# Script Usage
+# - Use this script to list resources in different ways from the subscription
+# - Note that location can be added to any of these list commands
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+
+#List all resources in subscription output color json
+az resource list -o jsonc
+
+#List all resources in subscription output table
+az resource list -o table
+
+#List all resources in subscription from specific location output table
+az resource list -l $location \
+                 -o table
+
+#List all resources IDs in subscription output tsv - useful for loading array loops
+az resource list --query [].id \
+                 -o tsv
+
+#List all resources in resource group output table
+az resource list -g $rg \
+                 -o table
+
+#List all resources IDs in resource group output tsv - useful for loading array loops
+az resource list -g $rg \
+                 --query [].id \
+                 -o tsv

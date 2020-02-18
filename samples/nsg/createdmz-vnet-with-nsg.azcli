@@ -1,0 +1,98 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Use script to create DMZ vnet (no firewall) with nsg rules for subnet
+# Script Usage
+# - Update variables to create a sample vnet with nsgs that have rules for 80, 443, deny-all
+##################################################################################
+
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Global Assign variables
+rg=az-kung-fu-sample-2
+location=eastus2
+# VNET variables
+vnetName=az-kung-fu-dmz-vnet
+vnetSubnetName1=www
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location
+
+# Create the Virtual Network
+az network vnet create -g $rg \
+                       -l $location \
+                       -n $vnetName \
+                       --address-prefixes 172.16.0.0/20
+
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create -g $rg \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --address-prefix 172.16.1.0/24
+
+# Assign nsg variables for www
+nsgName=az-kung-fu-dmz-vnet-nsg-www
+rule100Name=az-kung-fu-dmz-vnet-nsg-www-http
+rule110Name=az-kung-fu-dmz-vnet-nsg-www-https
+rule4096Name=az-kung-fu-dmz-vnet-nsg-www-deny
+
+# Create the NSG
+az network nsg create -g $rg \
+                      -n $nsgName
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 80
+az network nsg rule create -g $rg \
+                           -n $rule100Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 100 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "80" \
+                           --description "Allow HTTP" \
+                           --protocol TCP
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 443
+az network nsg rule create -g $rg \
+                           -n $rule110Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 110 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "443" \
+                           --description "Allow https" \
+                           --protocol TCP
+
+# Create the NSG Inbound Rule to deny all traffic after other rules put in place
+az network nsg rule create -g $rg \
+                           -n $rule4096Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 4096 \
+                           --access deny \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "*" \
+                           --description "deny-all" \
+                           --protocol "*"
+
+#Assign the Subnet for the Virtual Network
+az network vnet subnet update -g $rg \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --network-security-group $nsgName

@@ -1,0 +1,33 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Update exsisting Locks on Resource Groups
+# Script Usage
+# - Update variables to Update locks on resource groups
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+lockName=[your_lock_name]
+
+#Update a Read Only Lock - admins can make not changes or delete objects
+az group lock update -g $rg \
+                     -n $lockName \
+                     --lock-type ReadOnly \
+                     --notes "admins can make not changes or delete objects"
+
+#Update a Can Not Delete Lock - allows users to make changes, but not delete objects
+az group lock update -g $rg \
+                     -n $lockName \
+                     --lock-type CanNotDelete \
+                     --notes "allows admins to make changes, but not delete objects"

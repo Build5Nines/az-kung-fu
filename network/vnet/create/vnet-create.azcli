@@ -1,0 +1,43 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Create VNET and Two Subnets
+# Script Usage
+# - Update the variables including vnet and subnet names to create the vnets
+# - You can extend to more subnets, but following the pattern and adding more
+# - CIDR ranges must be correct as the script has no way to validate for you
+###########################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vnetName=[your_vnet_name]
+vnetSubnetName1=[your_subnet_1_name]
+vnetSubnetName2=[your_subnet_2_name]
+
+# Create the Virtual Network
+az network vnet create -g $rg \
+                       -l $location \
+                       -n $vnetName \
+                       --address-prefixes 10.0.0.0/16
+
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create -g $rg \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --address-prefix 10.0.1.0/24
+
+az network vnet subnet create -g $rg \
+                              -n $vnetSubnetName2 \
+                              --vnet-name $vnetName \
+                              --address-prefix 10.0.2.0/24

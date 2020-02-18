@@ -1,0 +1,18 @@
+#!/bin/bash
+###########################################################################################
+# Stormtrooper Project 
+# MIT License - https://github.com/deltadan/stormtrooper
+# Copyright (c) 2018 Dan Patrick - @deltadan
+#
+# Update existing NIC to use a Static IP Address and set the IP
+###########################################################################################
+
+#Variables for Script
+RG=STRG
+nicName=STVM1-NIC
+
+#Update exsiting nic to use static private ip address (must use available address in the CIDR range of subnet)
+az network nic ip-config update -n ipconfig1 \
+                                --nic-name $nicName \
+                                -g $RG \
+                                --private-ip-address 10.0.1.4

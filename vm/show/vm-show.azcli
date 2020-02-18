@@ -1,0 +1,45 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Show details about an Azure VM configuration
+# Script Usage
+# - Use the table format for simple information
+# - Use the JSON format to find every detail about the VM or output to a file
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vmName=[your_vm_name]
+
+#Shows VM information including Powerstate, Location in Table format
+az vm show --show-details \
+           -n $vmName \
+           -g $rg \
+           -o table
+
+#Shows VM information including Powerstate, Location in JSON color
+az vm show --show-details \
+           -n $vmName \
+           -g $rg \
+           -o jsonc
+
+#Shows VM information including Powerstate, Location in JSON to a file in current directory
+az vm show --show-details \
+           -n $vmName \
+           -g $rg \
+           -o json >>$vmName.txt
+
+
+
+
+
