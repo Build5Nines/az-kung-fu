@@ -166,4 +166,4 @@ az vm extension set --publisher Microsoft.OSTCExtensions \
                     -g $rg \
                     --vm-name $vmName1 \
                     --version 1.4 \
-                    --settings "{ \"fileUris\": [\"https://raw.githubusercontent.com/Build5Nines/sprint1/az-kung-fu/samples/nginx.sh\"], \"commandToExecute\": \"bash apache.sh\" }"
+                    --settings "{ \"fileUris\": [\"https://raw.githubusercontent.com/Build5Nines/sprint1/az-kung-fu/samples/nginx.sh\"], \"commandToExecute\": \"bash nginx.sh\" }"
