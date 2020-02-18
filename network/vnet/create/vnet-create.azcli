@@ -1,39 +1,42 @@
 #!/bin/bash
-###########################################################################################
-# Stormtrooper Project 
-# MIT License - https://github.com/deltadan/stormtrooper
-# Copyright (c) 2018 Dan Patrick - @deltadan
-#
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
 #Script Purpose
-# - This script will create a new Resource Group, VNET and Two Subnets
-# - The Resource Group line can be removed if it already exsists
+# - Create VNET and Two Subnets
+# Script Usage
+# - teach the grasshopper how to use this kung-fu
 ###########################################################################################
 
-#Variables for Script
-RG=STRG
-location=centralus
-vnetName=STVNET
-vnetSubnetName1=Apps
-vnetSubnetName2=Data
 
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
 
-# Create a Resource Group (only needed if the RG doesn't exsist)
-az group create -n $RG -l $location
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vnetName=[your_vnet_name]
+vnetSubnetName1=[your_subnet_1_name]
+vnetSubnetName2=[your_subnet_2_name]
 
 # Create the Virtual Network
-az network vnet create -g $RG \
+az network vnet create -g $rg \
                        -l $location \
                        -n $vnetName \
                        --address-prefixes 10.0.0.0/16
 
 
 #Create the Subnets for the Virtual Network
-az network vnet subnet create -g $RG \
+az network vnet subnet create -g $rg \
                               -n $vnetSubnetName1 \
                               --vnet-name $vnetName \
                               --address-prefix 10.0.1.0/24
 
-az network vnet subnet create -g $RG \
+az network vnet subnet create -g $rg \
                               -n $vnetSubnetName2 \
                               --vnet-name $vnetName \
                               --address-prefix 10.0.2.0/24

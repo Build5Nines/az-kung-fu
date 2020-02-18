@@ -1,0 +1,60 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Create a New Service Principal
+# - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest
+# Azure will return values for the SPN created link this:
+#   {
+#       "appId": "APP_ID",
+#       "displayName": "ServicePrincipalName",
+#       "name": "http://ServicePrincipalName",
+#       "password": ...,
+#       "tenant": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+#   }
+# Script Usage
+# Update variables to create Service Principals
+###########################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+scopes=[your_scope_here_/subscriptions/FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF]
+spName=[your_vm_name]
+certName=[your_cert_name]
+keyvaultName=[your_keyvault_name]
+certName=[your_cert_name]
+certFileName=[your_cert_file_name]
+
+#If created using password
+az ad sp create-for-rbac --role=Contributor \
+                         -n $spName \
+                         --scopes=/subscriptions/FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF
+
+#if creating with cert
+az ad sp create-for-rbac --role=Contributor \
+                         -n $spName \
+                         --cert $certFileName
+
+#if using cert that is currently stored in a keyvault
+az ad sp create-for-rbac --role=Contributor \
+                         -n $spName \
+                         --cert $certName \
+                         --keyvault $keyvaultName
+
+#if creating using self signed cert
+az ad sp create-for-rbac -n $spName \
+                         --create-cert
+
+#if creating using self signed cert you will store in keyvault
+az ad sp create-for-rbac -n $spName \
+                         --create-cert \
+                         --cert $certName \
+                         --keyvault $keyvaultName
+

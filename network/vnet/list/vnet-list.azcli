@@ -7,10 +7,9 @@
 # Please, proceed with extreme caution!
 #################################################################################
 #Script Purpose
-# - Delete VNET
-# - All VMs must be removed from the VNET prior to attempt delete
+# -List vnets for subscription or rg
 # Script Usage
-# - Update variables to delete VNET
+# - Update variables to see list the vnet
 ###########################################################################################
 
 ## Assign your Azure subscription name or id
@@ -18,8 +17,17 @@ az account set -s "[subscription_name_here]"
 
 ## Assign variables
 rg=[resource_group_name]
-vnetName=[your_vnet_name]
 
-## Delete Virtual Network
-az network vnet delete -g $rg \
-                       -n $vnetName
+# Show the Virtual Networks in a resource group jsonc
+az network vnet list -o jsonc
+
+# List the Virtual Networks in a resource gorup
+az network vnet list -o table
+
+# Show the Virtual Networks in a resource group jsonc
+az network vnet list -g $rg \
+                     -o jsonc
+
+# List the Virtual Networks in a resource gorup
+az network vnet list -g $rg \
+                     -o table

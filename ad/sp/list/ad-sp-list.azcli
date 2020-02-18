@@ -6,20 +6,23 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
-# - Delete VNET
-# - All VMs must be removed from the VNET prior to attempt delete
+# Script Purpose
+# - List Azure Service Principals from Azure AD
 # Script Usage
-# - Update variables to delete VNET
-###########################################################################################
+# - Update variables with spID found using az ad sp list command
+##################################################################################
 
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"
 
-## Assign variables
-rg=[resource_group_name]
-vnetName=[your_vnet_name]
+# List Azure AD SPs in json
+az ad sp list --all \
+              -o jsonc
 
-## Delete Virtual Network
-az network vnet delete -g $rg \
-                       -n $vnetName
+# List Azure AD SPs in table
+az ad sp list --all \
+              -o table
+
+# List Azure AD SPs in table out to a file
+az ad sp list --all \
+              -o table >>azure-sps.txt

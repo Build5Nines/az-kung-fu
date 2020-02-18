@@ -6,16 +6,23 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-# Used to smoke test while building scripts for this repo
+#Script Purpose
+# - This script should be run to update the Custom DNS Setting for a Virtual Network
+# - All VMs will need to be rebooted in order to pick up these settings
+# Script Usage
+# - Update the variables to provide a custom DNS server in priority order
+# - Both internal or external DNS servers can be used not the space separated list
 ##################################################################################
 
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"
 
 ## Assign variables
-rg=az-kung-fu-vnets
-location=eastus2
+rg=[resource_group_name]
+location=[azure_region_name]
+vmnetName=[your_vnet_name]
 
-# Create a Resource Group (only needed if the RG doesn't exsist)
-az group create -n $rg \
-                -l $location
+# Create VNET with Customer Managed DNS Servers
+az network vnet update -g $rg \
+                       -n $vnetName \
+                       --dns-servers 10.0.0.4 8.8.8.8

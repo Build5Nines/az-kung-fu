@@ -1,0 +1,90 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Sample to show how to create two VNETs and then peer them together
+# Script Usage
+# - Update the script and run to see sample of VNET A and VNET B created and peered.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=az-kung-fu-vnets
+location=eastus2
+# VNET A
+vnetNameA=VNET-A
+vnetASubnetName1=APPS
+vnetASubnetName2=DATA
+# VNET B
+vnetNameB=VNET-B
+vnetBSubnetName1=APPS
+vnetBSubnetName2=DATA
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location
+
+# Create the Virtual Network A
+az network vnet create -g $rg \
+                       -l $location \
+                       -n $vnetNameA \
+                       --address-prefixes 10.0.0.0/16
+
+#Create the Subnets for the Virtual Network A
+az network vnet subnet create -g $rg \
+                              -n $vnetASubnetName1 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.1.0/24
+
+az network vnet subnet create -g $rg \
+                              -n $vnetASubnetName2 \
+                              --vnet-name $vnetNameA  \
+                              --address-prefix 10.0.2.0/24
+
+# Create the Virtual Network B
+az network vnet create -g $rg \
+                       -l $location \
+                       -n $vnetNameB \
+                       --address-prefixes 172.16.0.0/16
+
+#Create the Subnets for the Virtual Network B
+az network vnet subnet create -g $rg \
+                              -n $vnetBSubnetName1 \
+                              --vnet-name $vnetNameB  \
+                              --address-prefix 172.16.1.0/24
+
+az network vnet subnet create -g $rg \
+                              -n $vnetBSubnetName2 \
+                              --vnet-name $vnetNameB \
+                              --address-prefix 172.16.2.0/24
+
+# Create peering VNETA to VNETB
+az network vnet peering create -g $rg \
+                               -n $vnetNameA-to-$vnetNameB \
+                               --vnet-name $vnetNameA \
+                               --allow-vnet-access \
+                               --remote-vnet $vnetNameB
+
+# Create peering VNETB to VNETA
+az network vnet peering create -g $rg \
+                               -n $vnetNameB-to-$vnetNameA \
+                               --vnet-name $vnetNameB \
+                               --allow-vnet-access \
+                               --remote-vnet $vnetNameA
+
+#To See the Current State of the Peering as a Table
+az network vnet peering list -g $rg \
+                             --vnet-name $vnetNameB \
+                             -o tsv
+                             
+ #To See the Current State using a query
+az network vnet peering list -g $rg \
+                             --vnet-name $vnetNameB \
+                             --query "[].peeringState"
