@@ -11,9 +11,6 @@
 # - Create a NIC and associate a NSG (NSG must exsist see - network/nsg-nic-create.azcli) 
 ###########################################################################################
 
-
-
-
 #Variables for Script
 RG=STRG
 nicName=nicName=[your_nic_name]
