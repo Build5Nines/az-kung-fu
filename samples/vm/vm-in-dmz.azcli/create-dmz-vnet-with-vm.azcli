@@ -1,0 +1,169 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Use script to create DMZ vnet (no firewall) with VM and nsg rules for subnet
+# Script Usage
+# - Update variables to create a sample vnet with nsgs that have rules for 80, 443, deny-all
+##################################################################################
+
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Global Assign variables
+rg=az-kung-fu-sample-dmz
+location=eastus2
+
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location
+
+# VNET variables
+vnetName=az-kung-fu-dmz-vnet
+vnetSubnetName0=AzureBastionSubnet
+vnetSubnetName1=www
+# Create a Resource Group (only needed if the RG doesn't exsist)
+az group create -n $rg \
+                -l $location
+
+# Create the Virtual Network
+az network vnet create -g $rg \
+                       -l $location \
+                       -n $vnetName \
+                       --address-prefixes 172.16.0.0/20
+
+
+#Create the Subnets for the Virtual Network
+az network vnet subnet create -g $rg \
+                              -n $vnetSubnetName0 \
+                              --vnet-name $vnetName \
+                              --address-prefix 172.16.0.0/24
+
+az network vnet subnet create -g $rg \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --address-prefix 172.16.1.0/24
+
+# Assign nsg variables for www
+nsgName=az-kung-fu-dmz-vnet-nsg-www
+rule100Name=az-kung-fu-dmz-vnet-nsg-www-http
+rule110Name=az-kung-fu-dmz-vnet-nsg-www-https
+rule120Name=az-kung-fu-dmz-vnet-nsg-www-ssh
+rule4096Name=az-kung-fu-dmz-vnet-nsg-www-deny
+
+# Create the NSG
+az network nsg create -g $rg \
+                      -n $nsgName
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 80
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 80
+az network nsg rule create -g $rg \
+                           -n $rule100Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 100 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "80" \
+                           --description "Allow HTTP" \
+                           --protocol TCP
+
+# Create the NSG Inbound Rule allowing TCP traffic on Port 443
+az network nsg rule create -g $rg \
+                           -n $rule110Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 110 \
+                           --access Allow \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "443" \
+                           --description "Allow https" \
+                           --protocol TCP
+
+# Create the NSG Inbound Rule allowing SSH traffic on 22 from Bastion Subnet
+az network nsg rule create -g $rg \
+                           -n $rule120Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 120 \
+                           --access Allow \
+                           --source-address-prefix "172.16.0.0/24" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "22" \
+                           --description "SSH" \
+                           --protocol TCP
+
+
+# Create the NSG Inbound Rule to deny all traffic after other rules put in place
+az network nsg rule create -g $rg \
+                           -n $rule4096Name \
+                           --nsg-name $nsgName \
+                           --direction Inbound \
+                           --priority 4096 \
+                           --access deny \
+                           --source-address-prefix "*" \
+                           --source-port-range "*" \
+                           --destination-address-prefix "*" \
+                           --destination-port-range "*" \
+                           --description "deny-all" \
+                           --protocol "*"
+
+#Assign the Subnet for the Virtual Network
+az network vnet subnet update -g $rg \
+                              -n $vnetSubnetName1 \
+                              --vnet-name $vnetName \
+                              --network-security-group $nsgName
+
+## Assign variables for all vm componets
+vmName=az-kung-fu-vm-www1
+vmImageLinux=Canonical:UbuntuServer:18.04-LTS:latest
+nicName1=az-kung-fu-vm-www1-nic-eth0
+publicIPName1=az-kung-fu-vm-www1-pip1
+dnsName=azkungfuvm1
+allocMethod=static
+
+# Creating a pip for vm - static address
+az network public-ip create -g $rg \
+                            -n $publicIPName1 \
+                            --dns-name $dnsName \
+                            --allocation-method $allocMethod
+
+#Create nic for vm
+az network nic create -n $nicName1 \
+                      -g $rg \
+                      --vnet-name $vnetName \
+                      --subnet $vnetSubnetName1 \
+                      --public-ip-address $publicIPName1
+
+#Create vm and attach to nic
+az vm create -n $vmName \
+             -g $rg \
+             -l $location \
+             --size Standard_DS2_V2 \
+             --nics $nicName1 \
+             --authentication-type password \
+             --admin-username grasshopper \
+             --admin-password @zkungfu2020 \
+             --image "Canonical:UbuntuServer:18.04-LTS:latest" \
+             --os-disk-name $vmName-osdisk
+
+#Install NGINX on the VM using Linux Custom Script Extention
+
+az vm extension set --publisher Microsoft.OSTCExtensions \
+                    -n CustomScriptForLinux \
+                    -g $rg \
+                    --vm-name $vmName1 \
+                    --version 1.4 \
+                    --settings "{ \"fileUris\": [\"https://raw.githubusercontent.com/Build5Nines/sprint1/az-kung-fu/samples/nginx.sh\"], \"commandToExecute\": \"bash apache.sh\" }"

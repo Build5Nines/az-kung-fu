@@ -1,15 +1,21 @@
 #!/bin/bash
-###########################################################################################
-# Stormtrooper Project 
-# MIT License - https://github.com/deltadan/stormtrooper
-# Copyright (c) 2018 Dan Patrick - @deltadan
-#
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
 #Script Purpose
 # - This script will create a new Network Security Group (NSG)
 # - A Inbound rule will be created to allow TCP traffic from any src address or src port
 #   to dest address on dest port 80
-# - The NSG will then be associated to a NIC (must be created first - see network/nic-create.azcli) 
+# - The NSG will then be associated to a NIC 
+# - (must be created first - see net/create/nic-create.azcli) 
 ###########################################################################################
+
+
+
 
 az network nsg create --resource-group CLIRefRG --name AppsNSG
 

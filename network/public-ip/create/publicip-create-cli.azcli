@@ -1,0 +1,29 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - This script will create a new Public IP Address
+# Script Usage
+# - Update the variables to create a PIP
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+pubIPName=[your_pip_name]
+dnsName=[your_dns_name]
+allocMethod=[static_or_dynamic]
+
+# Creating a Public IP Address
+az network public-ip create -g $rg \
+                            -n $pubIPName \
+                            --dns-name $dnsName \
+                            --allocation-method $allocMethod

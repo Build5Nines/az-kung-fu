@@ -9,9 +9,10 @@
 #Script Purpose
 # - Create VNET and Two Subnets
 # Script Usage
-# - teach the grasshopper how to use this kung-fu
+# - Update the variables including vnet and subnet names to create the vnets
+# - You can extend to more subnets, but following the pattern and adding more
+# - CIDR ranges must be correct as the script has no way to validate for you
 ###########################################################################################
-
 
 ## Assign your Azure subscription name or id
 az account set -s "[subscription_name_here]"

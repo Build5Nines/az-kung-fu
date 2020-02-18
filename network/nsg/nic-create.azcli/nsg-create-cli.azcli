@@ -11,18 +11,22 @@
 # - The NSG will then be associated to a NIC (must be created first - see network/nic-create.azcli) 
 ###########################################################################################
 
-#Variables for Script
-RG=STRG
-nsgName=STVM1-NSG
-rule1Name=PORT_HTTP_80
-nicName=STVM1-NIC
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+nsgName=[your_nsg_name]
+rule1Name=[your_nsg_rule_name]
+nicName=[your_nic_name]
 
 # Create the NSG
-az network nsg create -g $RG \
+az network nsg create -g $rg \
                       -n $nsgName
 
 # Create the NSG Inbound Rule allowing TCP traffic on Port 80
-az network nsg rule create -g $RG \
+az network nsg rule create -g $rg \
                            -n $rule1Name \
                            --nsg-name $nsgName \
                            --direction Inbound \
