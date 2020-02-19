@@ -1,0 +1,30 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# *******************DANGER TO PRODCTION ENVIRONMENTS****************************
+# Script Purpose
+# - Load a list of all VMs in a resource group and then pass that list 
+# - to an array and then loop to stop all VMs
+# Script Usage
+# - Update the variables to stop all VMs in a subscription.
+##################################################################################
+#Load variables
+rg=[resource_group_name]
+command=vm
+
+#Load listFoo and create output file
+listFoo=$(az $command list -g $rg --query [].name --output tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev)
+az $command list -g $rg --query [].name --output tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev>>list-foo.txt
+
+#Pass listFoo to the command and execute loop
+array=($listFoo)
+for vms in "${array[@]}"
+do
+    az vm stop --resource-group $rg \
+               --name $vms
+done

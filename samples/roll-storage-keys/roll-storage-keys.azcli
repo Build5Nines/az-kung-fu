@@ -1,0 +1,37 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#*************************DANGER IN PRODUCTION***********************************
+#Script Purpose
+# - Roll Keys of Storage Accts put into an array
+# Script Usage
+# - Update the of account names in the array to roll the keys
+# - Make sure you understand what is using the keys as access with current keys
+# - will be lost permanently.  If using VMs with storage accounts they will not
+# - be impacted by rolling the keys.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+vmName=[your_vm_name]
+
+## Update the array with the storage account names to be rolled
+array=(storageAccountName1 storageAccountName2)
+for disks in "${array[@]}"
+do
+    az storage account keys renew -g $rg \
+                                  -n $disks \
+                                  --key primary
+    az storage account keys renew -g $rg \
+                                  -n $disks \
+                                  --key secondary
+done

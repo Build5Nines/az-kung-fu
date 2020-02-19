@@ -1,2 +1,0 @@
-# Add VM IP Addresses to the Backend Pool of App Gateway
-az network application-gateway address-pool update -n appGatewayBackendPool --gateway-name CLIRefAppGW -g CLIRefRG --servers 10.0.0.6 10.0.0.7

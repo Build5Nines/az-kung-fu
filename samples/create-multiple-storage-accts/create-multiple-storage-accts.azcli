@@ -1,0 +1,34 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Create multiple Azure Storage Accounts in Loop
+# - Update array statement with unique Storage Account Names (must be globally unique)
+# Script Usage
+# - Update variables to create multiple storage accounts
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+sku=Standard_LRS
+
+## Create multiple storage accounts with one command
+array=(acctName1 acctName2 acctName3)
+for accounts in "${array[@]}"
+do
+az storage account create \
+    -n $accounts \
+    -g $rg \
+    -l $location \
+    --sku $sku \
+    --kind StorageV2
+done
