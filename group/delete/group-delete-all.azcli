@@ -7,7 +7,7 @@
 # Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
-#********************************** DANGER***************************************
+#**********************************MEGA-DANGER***********************************
 # - Delete all Resource Groups in an Azure Subscription - that's right EVERYTHING
 #********************************************************************************
 # Script Usage
@@ -26,7 +26,6 @@ for rg in $groups
 do
 	az group delete \
             --name $rg \
-            --subscription $subId \
             --yes \
             --no-wait
 done
