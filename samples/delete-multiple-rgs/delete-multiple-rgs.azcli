@@ -1,0 +1,36 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Query for resoruce groups that contain text example:'az-kung-fu' using listFoo
+# - Format that list variable named $listFoo
+# - Pass $listFoo into array, loop az group to delete multiple Resource Groups
+# Script Usage
+# - Learn listFoo and clean up test deployments
+# - Load the names of your RGs in the array, space separated.
+# - Use this sample for learning arrays with AZ cli
+# - Learn simple queries with the AZ cli
+##################################################################################
+
+#Assign variables
+listFoo=$(az group list --query "[?contains(name,'az-kung-fu')].name" -o table \
+                        -o tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev)
+
+#Enter values into the array and create multiple resource groups in one command
+location=eastus2
+array=($listFoo)
+for rgs in "${array[@]}"
+do
+    az group delete -n $rgs \
+                    --yes \
+                    --no-wait
+done
+
+#Use az group list with a query to find all RGs with 'az-kung-fu' in the name
+az group list --query "[?contains(name,'az-kung-fu')].name"
+
