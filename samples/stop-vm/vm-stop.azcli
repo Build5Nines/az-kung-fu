@@ -1,0 +1,28 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Stop or Deallocate a VM in Azure
+# Script Usage
+# - Update variables to stop or deallocate a VM
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+vmName=[your_vm_name]
+
+## Stop (not deallocate a vm)
+az vm stop -g $rg \
+           -n $vm
+
+## Stop (not deallocate a vm)
+az vm deallocate -g $rg \
+                 -n $vm

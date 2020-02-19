@@ -1,0 +1,38 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Script used to alter all managed disks in an RG
+# Script Usage
+# - Use this script to change all disk types
+# - Usecase: save on Azure spend when disks aren't in use
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+currentDiskType=Premium_LRS
+newDiskType=Standard_LRS
+
+# Load listFoo based on the query
+listFoo=$(az disk list -g $rg \
+             --query "[?sku.name=='$currentDiskType']".name -o table \
+             -o tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev)
+
+# Run loop to update the disks based on array in listFoo
+array=($listFoo)
+for disks in "${array[@]}"
+do
+    az disk update -g $rg \
+                   -n $disks \
+                   --sku $newDiskType \
+                   --no-wait
+done

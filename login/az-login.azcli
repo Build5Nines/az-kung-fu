@@ -1,0 +1,32 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Shows different ways to login to the azure cli
+# Script Usage
+# - Sign in you must grasshopper, this file shows you how to start your az-kung-fu.
+##################################################################################
+
+#Login interactively
+az login
+
+# Log in with user name and password. This doesn't work with Microsoft accounts or accounts that
+# have two-factor authentication enabled
+az login -u johndoe@contoso.com -p VerySecret
+
+# Log in with a service principal using client secret.
+az login --service-principal \
+         -u http://azure-cli-2016-08-05-14-31-15 \
+         -p VerySecret \
+         --tenant contoso.onmicrosoft.com
+
+#Log in with a service principal using client certificate.
+az login --service-principal \
+         -u http://azure-cli-2016-08-05-14-31-15 \
+         -p ~/mycertfile.pem \
+         --tenant contoso.onmicrosoft.com

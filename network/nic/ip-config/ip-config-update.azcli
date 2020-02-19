@@ -1,0 +1,24 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Update the ipconfig of a nic
+# Script Usage
+# - update the variables to update an exsisting ipconfig on a nic
+##################################################################################
+
+#Variables for Script
+rg=[resource_group_name]
+nicName=[your_nic_name]
+ipConfig1=[your_ip_config_name]
+
+#Update exsiting nic to use static private ip address (must use available address in the CIDR range of subnet)
+az network nic ip-config update -n $ipConfig1 \
+                                --nic-name $nicName \
+                                -g $rg \
+                                --private-ip-address 10.0.1.4

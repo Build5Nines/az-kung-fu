@@ -38,7 +38,6 @@ az network vnet create -g $rg \
                        -n $vnetName \
                        --address-prefixes 172.16.0.0/20
 
-
 #Create the Subnets for the Virtual Network
 az network vnet subnet create -g $rg \
                               -n $vnetSubnetName0 \
@@ -160,10 +159,9 @@ az vm create -n $vmName \
              --os-disk-name $vmName-osdisk
 
 #Install NGINX on the VM using Linux Custom Script Extention
-
-az vm extension set --publisher Microsoft.OSTCExtensions \
-                    -n CustomScriptForLinux \
+az vm extension set --publisher Microsoft.Azure.Extensions \
+                    -n CustomScript \
                     -g $rg \
-                    --vm-name $vmName1 \
-                    --version 1.4 \
-                    --settings "{ \"fileUris\": [\"https://raw.githubusercontent.com/Build5Nines/sprint1/az-kung-fu/samples/nginx.sh\"], \"commandToExecute\": \"bash nginx.sh\" }"
+                    --vm-name $vmName \
+                    --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Build5Nines/az-kung-fu/sprint1/samples/vm/vm-in-dmz.azcli/nginx.sh"],"commandToExecute": "./nginx.sh"}'
+  

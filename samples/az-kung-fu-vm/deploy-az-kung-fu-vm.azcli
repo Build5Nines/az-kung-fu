@@ -8,6 +8,7 @@
 #################################################################################
 # Script Purpose
 # - Sample which creates a RG and deploys the az-kung-fu-vm to using the CLI
+# - http://azkungfu.io/vm
 # Script Usage
 # - Update the variables and deploy
 # - You will need to supply a username and password.

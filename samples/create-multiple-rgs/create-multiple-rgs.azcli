@@ -1,0 +1,30 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create multiple Resource Groups
+# Script Usage
+# - Load the names of your RGs in the array, space separated.
+# - Use this sample for learning arrays with AZ cli
+# - Learn simple queries with the AZ cli
+##################################################################################
+
+#Enter values into the array and create multiple resource groups in one command
+location=eastus2
+array=(az-kung-fu-rg1 az-kung-fu-rg2 az-kung-fu-rg3)
+for rgs in "${array[@]}"
+do
+    az group create -n $rgs \
+                    -l $location
+done
+
+#Use az group list with a query to find all RGs with 'az-kung-fu' in the name
+az group list --query "[?contains(name,'az-kung-fu')].name"
+
+#Use az group list with a query to find all RGs in the location in your variables $location
+az group list --query "[?location=='$location']"

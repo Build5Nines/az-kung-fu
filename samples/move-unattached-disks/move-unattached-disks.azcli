@@ -1,0 +1,36 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Script finds all unattached disks and moves them to a different rg
+# Script Usage
+# - unattached disks are dangerous for data exfiltration and cost $$
+# - move them and then evaluate what to do with them - then delete them.
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=currentResourceGroup
+destRg=destinationResourceGroup
+property=diskState
+value=Unattached
+
+#load a variable with the list based on the property and value
+listFoo=$(az disk list -g $rg \
+                       --query "[?$property=='$value']".id \
+                       -o tsv | sed "s/.*/& /" | tr -d '\n' | rev | cut -c 2- | rev)
+
+# Run loop to update the disks based on array in listFoo
+array=($listFoo)
+for disks in "${array[@]}"
+do
+    az resource move --destination-group $destRg \
+                     --ids $disks
+done
