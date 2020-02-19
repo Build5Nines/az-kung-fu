@@ -163,5 +163,5 @@ az vm extension set --publisher Microsoft.Azure.Extensions \
                     -n CustomScript \
                     -g $rg \
                     --vm-name $vmName \
-                    --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Build5Nines/az-kung-fu/master/samples/vm/vm-in-dmz.azcli/nginx.sh"],"commandToExecute": "./nginx.sh"}'
+                    --protected-settings '{"fileUris": ["https://raw.githubusercontent.com/Build5Nines/az-kung-fu/master/samples/vm-in-dmz/nginx.sh"],"commandToExecute": "./nginx.sh"}'
   
