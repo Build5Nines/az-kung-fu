@@ -30,13 +30,13 @@ All code here using was written using [Visual Studio Code](https://code.visualst
 
 Each of the folders contains scripts that we've built for many different types of scenarios.  The folders are broken down into different Azure resource types such as Compute, Storage, Networking or Containers.  In each folder there are sample scripts.  Within each of these folders you will find the specific azure resource names.
 
-###The folder match up to the az command groups. For example if you want to work with az net you can find folders in the repo /net.
+###The folder match up to the az command groups. For example if you want to work with az network you can find folders in the repo at /network.
 ```
-/net
+/network
 ```
-If you wanted to work with vnets the az command would be az net vnet, so the samples will be in the following folder:
+If you wanted to work with vnets the az command would be az network vnet, so the samples will be in the following folder:
 ```
-/net/vnet
+/network/vnet
 ```
 ## File Names
 
@@ -44,11 +44,11 @@ In the Azure Resource folders there are scripts that will then be named based on
 
 For example, a script that will create a new Virtual Network will be named:
 ```
-/net/vnet/vnet-create.azcli
+/network/vnet/create/vnet-create.azcli
 ```
 If the script was going to perform an update to a Virtual Network the verb would be update along with an action.  Here is an example of an update to a virtual network to add custom dns settings:
 ```
-/net/vnet/vnet-update-customdns.azcli
+/network/vnet/update/vnet-update-dns.azcli
 ```
 For scripts that delete resources, the verb would be delete:
 ```
@@ -58,7 +58,7 @@ For scripts that delete resources, the verb would be delete:
 
 The Azure CLI requires that you authenticate to run commands against your subscription.  Run the following command to authenticate.
 ```
-az login --username [user@domain.com] --password [your-password]
+az login
 ```
 ## FAQ
 
