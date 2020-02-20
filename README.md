@@ -30,7 +30,7 @@ All code here using was written using [Visual Studio Code](https://code.visualst
 
 Each of the folders contains scripts that we've built for many different types of scenarios.  The folders are broken down into different Azure resource types such as Compute, Storage, Networking or Containers.  In each folder there are sample scripts.  Within each of these folders you will find the specific azure resource names.
 
-###The folder match up to the az command groups. For example if you want to work with az network you can find folders in the repo at /network.
+### The folder match up to the az command groups. For example if you want to work with az network you can find folders in the repo at /network.
 ```
 /network
 ```
