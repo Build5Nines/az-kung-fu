@@ -52,7 +52,7 @@ If the script was going to perform an update to a Virtual Network the verb would
 ```
 For scripts that delete resources, the verb would be delete:
 ```
-/net/vnet/vnet-delete.azcli
+/network/vnet/delete/vnet-delete.azcli
 ```
 ## Running scripts
 
