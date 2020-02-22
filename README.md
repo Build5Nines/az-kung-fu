@@ -1,6 +1,6 @@
 # Az-Kung-Fu
 
-This repository contains the Azure CLI scripts that go along with the [Az Kung Fu series on Build5Nines.com](https://build5nines.com/az-kung-fu).
+This repository contains the Azure CLI scripts that go along with the [Az Kung Fu series on Build5Nines.com](http://azkungfu.io).
 
 <img src="https://i2.wp.com/build5nines.com/wp-content/uploads/2020/01/Azure-CLI-KungFu-Featured_Image.jpg?resize=1080%2C675&ssl=1"/>
 
