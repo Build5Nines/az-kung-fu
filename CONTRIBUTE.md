@@ -12,7 +12,7 @@ Please fork the project create a branch from Master.
 ```
 - For script names follow the noun-verb.azcli
 ```
-/net/vnet/create-vnet.azcli
+/net/vnet/create/create-vnet.azcli
 ```
 
 ## Pull Request
