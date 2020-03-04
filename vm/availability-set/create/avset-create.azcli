@@ -1,0 +1,27 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create Availalbity Sets
+# Script Usage
+# - Update the variables
+# - Update the values for update domain to as many as 20
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+avSetName=[your_avset_name]
+
+#Create Availablity Sets
+az vm availability-set create -n $avSetName \
+                              -g $rg \
+                              --platform-fault-domain-count 3 \
+                              --platform-update-domain-count 5
