@@ -12,3 +12,7 @@ This is an archive of a few Azure CLI Kung Fu (az-kung-fu) scripts to help with 
 - [Create new Azure IoT Hub Device Provisioning Service (DPS)](dps/create/iot-dps-create.azcli)
 - [Delete existing Azure IoT Hub Device Provisioning Service (DPS)](dps/delete/iot-dps-delete.azcli)
 - [Link Azure IoT Hub to DPS Service](dps/linked-hub/create/iot-dps-linked-hub-create.azcli)
+
+## Azure IoT Hub Device Identity Management
+
+- [Create Device Identity in Azure IoT Hub using Symmetric Key](iot/hub/device-identity/create/iot-hub-device-identity-create-symmetric-key.azcli)
