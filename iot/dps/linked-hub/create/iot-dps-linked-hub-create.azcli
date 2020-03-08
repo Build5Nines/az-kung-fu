@@ -1,0 +1,27 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Link existing Azure IoT Hub and Device Provisioning Service (DPS) instances together
+#Script Usage
+# - update the variables to target existing IoT Hub and DPS services
+##################################################################################
+
+#Variables for Script
+rg=[resource_group_name]
+hubName=[iot_hub_name]
+dpsName=[dps_name]
+location=[location]
+
+# Get Connection String for existing Azure IoT Hub
+hubConnectionString=$(
+    az iot hub show-connection-string --hub-name $hubName --query connectionString --output tsv
+)
+
+# Link Azure IoT Hub with Device Provisioning Service (DPS) using IoT Hub Connection String
+az iot dps linked-hub create --dps-name $dpsName -g $rg --connection-string $hubConnectionString --location $location
