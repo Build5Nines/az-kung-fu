@@ -1,0 +1,24 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Create a New Azure IoT Hub
+#Script Usage
+# - update the variables to create an IoT Hub in different ways
+##################################################################################
+# Helpful reference link for command usage:
+# - https://build5nines.com/azure-cli-2-create-azure-iot-hub/
+##################################################################################
+
+#Variables for Script
+rg=[resource_group_name]
+hubName=[iot_hub_name]
+sku=[iot_hub_sku]
+
+#Create Azure IoT Hub
+az iot hub create --name $hubName --resource-group $rg --sku $sku
