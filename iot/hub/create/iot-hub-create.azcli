@@ -19,6 +19,7 @@
 rg=[resource_group_name]
 hubName=[iot_hub_name]
 sku=[iot_hub_sku]
+location=[location]
 
 #Create Azure IoT Hub
-az iot hub create --name $hubName --resource-group $rg --sku $sku
+az iot hub create --name $hubName --resource-group $rg --sku $sku --location $location
