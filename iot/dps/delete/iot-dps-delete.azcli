@@ -1,0 +1,22 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+#Script Purpose
+# - Delete an existing Azure IoT Hub Device Provisioning Service (DPS) service
+#Script Usage
+# - update the variables to delete a DPS service
+##################################################################################
+
+#Variables for Script
+rg=[resource_group_name]
+dpsName=[dps_name]
+sku=[iot_hub_sku]
+location=[location]
+
+#Delete an Azure IoT Hub Device Provisioning Service (DPS)
+az iot dps delete -n $dpsName -g $rg
