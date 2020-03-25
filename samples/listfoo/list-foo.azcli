@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 ###########################################################################################
-#Script Purpose
+# Script Purpose
 # - load the output of a az query command into a variable named $listFoo
 # - load the output of a az aeury command into a file in the current directory named property.txt
 ###########################################################################################

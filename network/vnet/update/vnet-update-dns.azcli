@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - This script should be run to update the Custom DNS Setting for a Virtual Network
 # - All VMs will need to be rebooted in order to pick up these settings
 # Script Usage

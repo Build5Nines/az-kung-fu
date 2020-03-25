@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Create VNET and Two Subnets
 # Script Usage
 # - Update the variables including vnet and subnet names to create the vnets

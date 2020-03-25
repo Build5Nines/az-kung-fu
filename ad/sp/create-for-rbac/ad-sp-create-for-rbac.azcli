@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Create a New Service Principal
 # - https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest
 # Azure will return values for the SPN created link this:

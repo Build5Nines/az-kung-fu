@@ -6,9 +6,9 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Delete an existing Device Identity within Azure IoT Hub
-#Script Usage
+# Script Usage
 # - update the variables to delete an IoT Device Identity
 ##################################################################################
 

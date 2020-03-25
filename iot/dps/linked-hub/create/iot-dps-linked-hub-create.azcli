@@ -6,9 +6,9 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Link existing Azure IoT Hub and Device Provisioning Service (DPS) instances together
-#Script Usage
+# Script Usage
 # - update the variables to target existing IoT Hub and DPS services
 ##################################################################################
 

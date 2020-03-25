@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - This script will create a new Public IP Address
 # Script Usage
 # - Update the variables to create a PIP

@@ -6,12 +6,12 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Create a New NIC without an NSG
 # - Create a NIC without NSG assign static private IP Address
 # - Create a NIC without NSG assign static Public IP Address (PublicIP must exsist see - etwork/publicip-create.azcli)
 # - Create a NIC and associate a NSG (NSG must exsist see - network/nsg/create/nsg-nic-create.azcli) 
-#Script Usage
+# Script Usage
 # - update the variables to create a nic if different ways
 ##################################################################################
 

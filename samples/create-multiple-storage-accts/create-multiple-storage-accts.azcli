@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Create multiple Azure Storage Accounts in Loop
 # - Update array statement with unique Storage Account Names (must be globally unique)
 # Script Usage

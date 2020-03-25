@@ -6,7 +6,7 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Delete VNET
 # - All VMs must be removed from the VNET prior to attempt delete
 # Script Usage

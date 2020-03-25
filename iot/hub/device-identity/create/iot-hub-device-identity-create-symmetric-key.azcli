@@ -6,9 +6,9 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-#Script Purpose
+# Script Purpose
 # - Create a new Device Identity within Azure IoT Hub using a Symmetric Key
-#Script Usage
+# Script Usage
 # - update the variables to create an IoT Device Identity
 ##################################################################################
 

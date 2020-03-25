@@ -7,7 +7,7 @@
 # Please, proceed with extreme caution!
 #################################################################################
 #*************************DANGER IN PRODUCTION***********************************
-#Script Purpose
+# Script Purpose
 # - Roll Keys of Storage Accts put into an array
 # Script Usage
 # - Update the of account names in the array to roll the keys

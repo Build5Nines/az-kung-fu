@@ -4,7 +4,7 @@
 # MIT License - https://github.com/deltadan/stormtrooper
 # Copyright (c) 2018 Dan Patrick - @deltadan
 #
-#Script Purpose
+# Script Purpose
 # - This script will create a new Network Security Group (NSG)
 # - A Inbound rule will be created to allow TCP traffic from any src address or src port
 #   to dest address on dest port 80
