@@ -1,0 +1,66 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create a new Web App
+# Script Usage
+# - Update the variables to create a Web App with different configurations
+##################################################################################
+
+## Assign variables
+rg=[resource_group_name]
+webApp=[web_app_name]
+appServicePlan=[your_appservice_plan_name]
+
+## Create a Web App (default configuration)
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan
+
+## Create a Web App with Node.js 6.2 runtime & deployed from local git repo
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan \
+    --runtime "node|6.2"
+    --deployment-local-git
+
+## Create a Web App with image from DockerHub
+dockerHubImage=[docker_hub_image]
+
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan \
+    -i $dockerHubImage
+
+## Create a Web App with image from private DockerHub registry
+dockerHubImage=[docker_hub_image]
+username=[docker_hub_username]
+password=[docker_hub_password]
+
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan \
+    -i $dockerHubImage \
+    -s $username \
+    -w $password
+
+## Create a Web App with image from private Azure Container Registry (ACR)
+acrImage=[acr_image]
+username=[docker_hub_username]
+password=[docker_hub_password]
+
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan \
+    -i $acrImage
+
+## Example Azure Container Registry (ACR) Image Name w/ Tag
+az webapp create -g $rg \
+    -n $webApp \
+    -p $appServicePlan \
+    -i myregistry.azurecr.io/docker-image:tag
