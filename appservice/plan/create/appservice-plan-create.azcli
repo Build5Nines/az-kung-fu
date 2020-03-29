@@ -18,5 +18,27 @@ location=[azure_region_name]
 appServicePlanName=[your_appservice_plan_name]
 sku=[appservice_plan_pricing_tier]
 
-# Create new App Service Plan
-az appservice plan create --name $appServicePlanName --sku $sku
+# Create new App Service Plan (default hosted on Windows)
+az appservice plan create --name $appServicePlanName \
+    --sku $sku \
+    --location $location
+
+# Create new App Service Plan hosted on Linux
+az appservice plan create --name $appServicePlanName \
+    --sku $sku \
+    --location $location \
+    --is-linux
+
+# Create new App Service Plan hosted on Windows container
+az appservice plan create --name $appServicePlanName \
+    --sku $sku \
+    --location $location \
+    --hyper-v
+
+# Create new App Service Plan for an App Service Environment (ASE)
+appServiceEnvironment=[your_appservice_environment_name]
+
+az appservice plan create --name $appServicePlanName \
+    --sku $sku \
+    --app-service-environment $appServiceEnvironment
+    
