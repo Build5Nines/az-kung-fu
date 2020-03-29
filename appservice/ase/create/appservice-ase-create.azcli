@@ -1,0 +1,49 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create a new App Service Environment (ASE)
+# Script Usage
+# - Update the variables to create an App Service Environment with different configurations
+##################################################################################
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+appServiceEnvironment=[your_appservice_environment_name]
+vnet=[vnet_name]
+subnet=[subnet_name]
+
+
+## Create an App Service Environment (ASE) and connect it to a VNet
+az appservice ase create -n $appServiceEnvironment -g $rg \
+    --vnet-name $vnet \
+    --subnet $subnet
+
+## Create an App Service Environment (ASE) with large front-ends and scale factor of 10
+frontEndSku=[front_end_sku]
+frontEndScaleFactor=[front_end_scale_factor]
+
+az appservice ase create -n $appServiceEnvironment -g $rg \
+    --vnet-name $vnet \
+    --subnet $subnet \
+    --front-end-sku $frontEndSku \
+    --front-end-scale-factor $frontEndScaleFactor \
+    --virtual-ip-type External
+
+## Create an App Service Environment (ASE); don't create NSG and Route table
+az appservice ase create -n $appServiceEnvironment -g $rg \
+    --vnet-name $vnet \
+    --subnet $subnet \
+    --ignore-network-security-group \
+    --ignore-route-table
+
+## Create an App Service Environment (ASE); ignore subnet validation
+az appservice ase create -n MyAseName -g MyResourceGroup --vnet-name MyVirtualNetwork \
+  --subnet MyAseSubnet \
+  --ignore-subnet-size-validation

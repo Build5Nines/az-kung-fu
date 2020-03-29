@@ -1,0 +1,24 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Update an existing App Service Plan
+# Script Usage
+# - Update the variables to update an App Service Plan with different configurations
+##################################################################################
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+appServicePlanName=[your_appservice_plan_name]
+sku=[appservice_plan_pricing_tier]
+
+## Update App Service Plan SKU / Pricing Tier
+az appservice plan update --name $appServicePlanName \
+    --resource-group $rg \
+    --sku $sku
