@@ -26,7 +26,7 @@ az vm image list-publishers -l $location \
                             -o table >azure-image-pub.txt
 
 ## Assign offers variables
-publisher=Canonical
+publisher=MicrosoftWindowsDesktop
 
 # List offers based on pubisher
 az vm image list-offers -l $location \
