@@ -1,0 +1,45 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+# Script Purpose
+# - describe in one line what the script does
+# Script Usage
+# - teach the grasshopper how to use this kung-fu
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+location=[azure_region_name] ## Values from: `az account list-locations`
+resourceType=[resource_type] ## Resource types e.g. "virttualMachines", "availabilitySets", "snapshots", "disks", etc.
+size=[size] ## Size name, partial name is accepted.
+zone=[zone] ## Show all vm size supporting availability zones. Allowed values: false, true.
+
+#List all SKUs incorporating subscription level restrictions JSON output
+az vm list-skus
+
+#List all SKUs incorporating subscription level restrictions JSON output color
+az vm list-skus -o jsonc
+
+#List all SKUs incorporating subscription level restrictions for certain location JSON output
+az vm list-skus -o json -l $location
+
+#List all SKUs incorporating subscription level restrictions for certain location and resource type JSON output
+az vm list-skus -o json -l $location -r $resourceType
+
+#List all SKUs incorporating subscription level restrictions for certain location, resource type and size JSON output
+az vm list-skus -o json -l $location -r $resourceType -s $size
+
+#List all SKUs incorporating subscription level restrictions for certain location, resource type, size and zone JSON output
+az vm list-skus -o json -l $location -r $resourceType -s $size -z $zone
+
+#List all SKUs incorporating subscription level restrictions for certain location and show sub set of info table output
+az vm list-skus -o table -l $location --query "[].{Name: name, ResourceType: resourceType, Restrictions: restrictions, Tier: tier}"
