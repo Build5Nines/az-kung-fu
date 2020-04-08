@@ -6,12 +6,10 @@
 # WARNING: These scripts could either cause resume generating events or get you promoted.
 # Please, proceed with extreme caution!
 #################################################################################
-# WARNING: These scripts could either cause resume generating events or get you promoted.
-# Please, proceed with extreme caution!
 # Script Purpose
-# - describe in one line what the script does
+# - Get details for compute-related resource SKUs available.
 # Script Usage
-# - teach the grasshopper how to use this kung-fu
+# - Use variables to customize query for available SKUs
 ##################################################################################
 
 ## Assign your Azure subscription name or id
