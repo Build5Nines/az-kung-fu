@@ -1,0 +1,24 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create a new Device Identity within Azure IoT Hub using a Self-signed x.509 certificate
+# Script Usage
+# - update the variables to create an IoT Device Identity
+##################################################################################
+
+#Variables for Script
+rg=[resource_group_name]
+hubName=[iot_hub_name]
+deviceId=[device_id]
+outputCertToDir=[output_cert_to_this_directory] # ex: "/path/to/output"
+
+#Create Device Identity in Azure IoT Hub using Symmetric Key
+az iot hub device-identity create --hub-name $hubName --device-id $deviceId \
+    --am x509_thumbprint \
+    --output-dir $outputCertToDir
