@@ -17,4 +17,5 @@ This is an archive of a few Azure CLI Kung Fu (az-kung-fu) scripts to help with 
 
 - [Create Device Identity in Azure IoT Hub using Symmetric Key](hub/device-identity/create/iot-hub-device-identity-create-symmetric-key.azcli)
 - [Create Device Identity in Azure IoT Hub using Self-signed x.509 Certificate](hub/device-identity/create/iot-hub-device-identity-create-certificate-self-signed.azcli)
+- [Create Device Identity in Azure IoT Hub using a Root CA Certificate](hub/device-identity/create/iot-hub-device-identity-create-root-ca-certificate.azcli)
 - [Delete Device Identity in Azure IoT Hub](hub/device-identity/delete/iot-hub-device-identity-delete.azcli)
