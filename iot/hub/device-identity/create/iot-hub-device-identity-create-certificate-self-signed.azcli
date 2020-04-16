@@ -7,7 +7,8 @@
 # Please, proceed with extreme caution!
 #################################################################################
 # Script Purpose
-# - Create a new Device Identity within Azure IoT Hub using a Self-signed x.509 certificate
+# - Create a new Device Identity within Azure IoT Hub using a Self-signed x.509
+#   certificate with default expiration of 365 days, and output to target directory
 # Script Usage
 # - update the variables to create an IoT Device Identity
 ##################################################################################
