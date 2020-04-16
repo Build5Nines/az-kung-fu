@@ -18,5 +18,5 @@ az account set -s "[subscription_name_here]"
 ## Assign variables
 spId=[your_sp_Id]
 
-#Delete azure service principal (use az ad sp show to find id)
+## Delete azure service principal (use az ad sp show to find id)
 az ad sp delete --id $spId
