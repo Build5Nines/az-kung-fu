@@ -1,0 +1,16 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Set new Vnet Address Space
+# Script Usage
+# - This command uses the "--add" switch along with property.listProperty <key=value, string or JSON string>.
+# - Remember it IS case sensitive!
+##################################################################################
+
+az network vnet update -add addressSpace.addressPrefixes [your_new_prefix] --name [your_vnet_name] --resource-group [your_rsg_name]
