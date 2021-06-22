@@ -1,0 +1,38 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create database 'mysql_database' in server 'mysql_database_server' without a given character set and collation rules.
+# - Create database 'mysql_database' in server 'mysql_database_server' with a given character set and collation rules.
+# Script Usage
+# - Update the variables with real and valid values
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+mysql_database=[database]
+mysql_database_server=[database_server]
+mysql_valid_charset=[valid_charset]
+mysql_valid_collation=[valid_collation]
+
+
+
+#Create database 'mysql_database' in server 'mysql_database_server' without a given character set and collation rules.
+az mysql db create -g $rg \
+    -s $mysql_database_server \
+    -n $mysql_database
+
+#Create database 'database' in server 'database_server' with a given character set and collation rules.
+az mysql db create -g $rg \
+    -s $mysql_database_server \
+    -n $mysql_database \
+    --charset $mysql_valid_charset  \
+    --collation $mysql_valid_collation
