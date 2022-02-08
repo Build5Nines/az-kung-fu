@@ -1,0 +1,47 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create Azure Database Mysql Single Server
+# Script Usage
+# - Update the variables with real anda valid values
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+mysql_database_server=[database_server]
+mysql_username=[mysql_username]
+mysql_password=[mysql_password]
+mysql_sku_name=[mysql_sku_name]
+ssl_enforcement=[ssl_enforcement]
+minimal_tls_version=[minimal_tls_version]
+public_network_access=[public_network_access]
+backup_retention=[backup_retention]
+geo_redundant_backup=[geo_redundant_backup]
+storage_size=[storage_size]
+version=[version]
+
+
+# Create Azure Database MySQL Single Server
+az mysql server create -l $location -g $rg \
+                       -n $database_server \
+                       -u $mysql_username \
+                       -p $mysql_password \                                     
+                       --sku-name $mysql_sku_name \
+                       --ssl-enforcement $ssl_enforcement
+                       --minimal-tls-version $minimal_tls_version \
+                       --public-network-access $public_network_access \
+                       --backup-retention $backup_retention \
+                       --geo-redundant-backup $geo_redundant_backup \
+                       --storage-size $storage_size \
+                       --version $version
+
