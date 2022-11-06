@@ -1,0 +1,37 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create a Data Explorer Cluster with System Assigned Managed Identity 
+# Script Usage
+# - Update the variables including SKU, cluster name, capacity, tier to create the Data Explorer Cluster
+###########################################################################################
+########### IMPORTANT DETAIL ##############################################################
+# Until this time the kusto extension is recommended to be installed  #####################
+# az extension add -n kusto
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+# No commas in Availablity zones (Optional) just plain numbers (1 2 3) with spaces in single quotes
+rg=[resource_group_name]
+location=[azure_region_name]
+name=[cluster_name]
+Capacity=[number_of_nodes]
+tier=['Basic'_or_'Standard']
+zones=['1 2 3']
+type="SystemAssigned"
+#Create the cluster
+#Watch the Cluster Name : Allowed values: Standard_DS13_v2+1TB_PS, Standard_DS13_v2+2TB_PS, Standard_DS14_v2+3TB_PS, Standard_DS14_v2+4TB_PS, Standard_D13_v2, Standard_D14_v2, Standard_L8s, Standard_L16s, Standard_D11_v2, Standard_D12_v2, Standard_L4s, Dev(No SLA)_Standard_D11_v2, Standard_E2a_v4, Standard_E4a_v4, Standard_E8a_v4, Standard_E16a_v4, Standard_E8as_v4+1TB_PS, Standard_E8as_v4+2TB_PS, Standard_E16as_v4+3TB_PS, Standard_E16as_v4+4TB_PS, Dev(No SLA)_Standard_E2a_v4
+az kusto cluster create -g $rg \
+                        -l $location \
+                        -n $name \
+                        --sku name='allowed_value' capacity=$Capacity tier=$tier \
+                        --zones $zones \
+                        --type $type
