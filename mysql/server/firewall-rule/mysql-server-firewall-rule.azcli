@@ -1,0 +1,27 @@
+#!/bin/bash
+#################################################################################
+# project: az-kung-fu
+# http://www.build5nines.com/az-kung-fu
+# MIT License - https://github.com/Build5Nines/az-kung-fu
+# WARNING: These scripts could either cause resume generating events or get you promoted.
+# Please, proceed with extreme caution!
+#################################################################################
+# Script Purpose
+# - Create Azure Database MySQL Firewall Rule Allow access to Azure services
+# Script Usage
+# - Update the variables with real anda valid values
+##################################################################################
+
+## Assign your Azure subscription name or id
+az account set -s "[subscription_name_here]"
+
+## Assign variables
+rg=[resource_group_name]
+location=[azure_region_name]
+mysql_database_server=[database_server]
+
+
+
+# Create Azure Database MySQL Firewall Rule Allow access to Azure services
+az mysql server firewall-rule create --resource-group $rg --server $mysql_database_server --name "AllowAllWindowsAzureIps" --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+
