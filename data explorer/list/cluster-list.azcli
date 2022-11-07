@@ -20,7 +20,7 @@ az account set -s "[subscription_name_here]"
 rg="[resource_group_name]"
 location=[azure_region_name]
 
-# List Kusto Clusters in Subsciption in Table format
+# List Kusto Clusters in Subsrciption in Table format
 az kusto cluster list -o table
 
 # List the Kusto Cluters in a resource gorup in Table format
