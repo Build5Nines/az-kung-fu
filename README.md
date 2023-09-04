@@ -10,6 +10,12 @@ Azure CLI Kung Fu is a ever growing library of Azure CLI samples that you can us
 
 Our goal for Azure CLI Kung Fu is to provide real world samples that you can use for your DevOps implementations. Microsoft provides an extensive [reference](https://docs.microsoft.com/en-us/cli/azure/reference-index?view=azure-cli-latest), but we've found it be to be much easier when there is an example to start from.
 
+## Introduction to Azure Kung Fu Toolkit
+
+In this video, shared by the official Microsoft Azure account on YouTube, [you’ll learn about the Azure Kung Fu Toolkit by taking a lap around what it has to offer](https://youtu.be/k9eQ8p2BoYU). The Azure Kung Fu Toolkit contains lots of practical Azure CLI scripts and examples that you can easily use by replacing parameters and running the scripts.
+
+[![Microsoft Azure: A lap around the Azure Kung Fu Toolkit](https://img.youtube.com/vi/k9eQ8p2BoYU/0.jpg)](https://youtu.be/k9eQ8p2BoYU)
+
 ## Install the Azure CLI
 
 The Azure CLI is a powerful and fast tool that can be used to work with almost any service in Azure. The AZ CLI is cross platform and can be installed and run from Windows, Macs, Linux and even a Docker container.
